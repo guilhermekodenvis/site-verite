@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { FaBuilding } from 'react-icons/fa'
 import ServicePageTemplate from '@/components/services/ServicePageTemplate'
 
 export const metadata: Metadata = {
@@ -17,7 +16,7 @@ const relatedServices = [
 export default function PericiaEngenhariaPage() {
   return (
     <ServicePageTemplate
-      icon={FaBuilding}
+      iconName="engineering"
       title="Perícia de Engenharia"
       subtitle="Análise técnica especializada em construções, imóveis e instalações"
       description="Realizamos perícias de engenharia completas para processos judiciais, com avaliações técnicas precisas de imóveis, estruturas, instalações e danos em construções."

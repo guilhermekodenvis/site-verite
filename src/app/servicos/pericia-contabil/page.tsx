@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { FaCalculator } from 'react-icons/fa'
 import ServicePageTemplate from '@/components/services/ServicePageTemplate'
 
 export const metadata: Metadata = {
@@ -17,7 +16,7 @@ const relatedServices = [
 export default function PericiaContabilPage() {
   return (
     <ServicePageTemplate
-      icon={FaCalculator}
+      iconName="accounting"
       title="Perícia Contábil"
       subtitle="Análise técnica especializada em questões financeiras e patrimoniais"
       description="Oferecemos perícias contábeis completas para processos judiciais, com análises detalhadas de documentos financeiros, cálculos precisos e laudos fundamentados tecnicamente."

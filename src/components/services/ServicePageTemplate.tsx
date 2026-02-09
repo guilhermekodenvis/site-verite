@@ -2,11 +2,24 @@
 
 import Link from 'next/link'
 import { FiArrowRight, FiCheck, FiPhone, FiImage, FiFileText, FiArrowUp } from 'react-icons/fi'
-import { IconType } from 'react-icons'
+import { FaUserMd, FaCalculator, FaHardHat, FaFingerprint, FaSignature, FaLeaf, FaLaptopCode } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
+// Map icon names to components
+const iconMap = {
+  'medical': FaUserMd,
+  'accounting': FaCalculator,
+  'engineering': FaHardHat,
+  'criminal': FaFingerprint,
+  'graphotechnical': FaSignature,
+  'environmental': FaLeaf,
+  'it': FaLaptopCode,
+} as const
+
+type IconName = keyof typeof iconMap
+
 interface ServicePageTemplateProps {
-  icon: IconType
+  iconName: IconName
   title: string
   subtitle: string
   description: string
@@ -50,7 +63,7 @@ function ImagePlaceholder({
 }
 
 export default function ServicePageTemplate({
-  icon: Icon,
+  iconName,
   title,
   subtitle,
   description,
@@ -61,6 +74,7 @@ export default function ServicePageTemplate({
   color,
   relatedServices,
 }: ServicePageTemplateProps) {
+  const Icon = iconMap[iconName]
   const contentReveal = useScrollReveal()
   const areasReveal = useScrollReveal()
   const processReveal = useScrollReveal()

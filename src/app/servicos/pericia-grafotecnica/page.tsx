@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { FaSignature } from 'react-icons/fa'
 import ServicePageTemplate from '@/components/services/ServicePageTemplate'
 
 export const metadata: Metadata = {
@@ -17,7 +16,7 @@ const relatedServices = [
 export default function PericiaGrafotecnicaPage() {
   return (
     <ServicePageTemplate
-      icon={FaSignature}
+      iconName="graphotechnical"
       title="Perícia Grafotécnica"
       subtitle="Análise técnica especializada em documentos e assinaturas"
       description="Realizamos perícias grafotécnicas completas para verificação de autenticidade de assinaturas, análise de documentos e identificação de fraudes na escrita."

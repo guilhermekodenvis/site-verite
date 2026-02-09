@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { FaSearch } from 'react-icons/fa'
 import ServicePageTemplate from '@/components/services/ServicePageTemplate'
 
 export const metadata: Metadata = {
@@ -17,7 +16,7 @@ const relatedServices = [
 export default function PericiaCriminalPage() {
   return (
     <ServicePageTemplate
-      icon={FaSearch}
+      iconName="criminal"
       title="Perícia Criminal"
       subtitle="Investigação técnica especializada para esclarecimento de crimes"
       description="Oferecemos perícias criminais completas e especializadas, com análises técnicas rigorosas de vestígios, documentos e evidências para processos criminais."

@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { FaLaptop } from 'react-icons/fa'
 import ServicePageTemplate from '@/components/services/ServicePageTemplate'
 
 export const metadata: Metadata = {
@@ -17,7 +16,7 @@ const relatedServices = [
 export default function PericiaInformaticaPage() {
   return (
     <ServicePageTemplate
-      icon={FaLaptop}
+      iconName="it"
       title="Perícia em Informática"
       subtitle="Investigação digital e análise forense de sistemas computacionais"
       description="Realizamos perícias em informática e forense digital para processos judiciais, com análise de dados digitais, crimes cibernéticos e recuperação de evidências eletrônicas."

@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { FaLeaf } from 'react-icons/fa'
 import ServicePageTemplate from '@/components/services/ServicePageTemplate'
 
 export const metadata: Metadata = {
@@ -17,7 +16,7 @@ const relatedServices = [
 export default function PericiaAmbientalPage() {
   return (
     <ServicePageTemplate
-      icon={FaLeaf}
+      iconName="environmental"
       title="Perícia Ambiental"
       subtitle="Análise técnica especializada em questões ecológicas e meio ambiente"
       description="Oferecemos perícias ambientais completas para processos judiciais, com análises técnicas de impactos ambientais, contaminação de solo e água, e danos ecológicos."
