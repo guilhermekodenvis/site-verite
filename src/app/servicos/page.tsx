@@ -69,7 +69,7 @@ export default function ServicosPage() {
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-semibold mb-6">
               Nossos <span className="text-gold-400">Serviços</span>
             </h1>
             <p className="text-xl text-primary-200 leading-relaxed">
@@ -99,7 +99,7 @@ export default function ServicosPage() {
                   
                   {/* Content */}
                   <div className="md:col-span-8">
-                    <h2 className="font-heading font-bold text-2xl text-primary-900 mb-2">
+                    <h2 className="font-heading font-semibold text-2xl text-primary-900 mb-2">
                       {service.title}
                     </h2>
                     <p className="text-primary-600 mb-4">
@@ -192,7 +192,7 @@ export default function ServicosPage() {
       <section className="py-20 bg-gradient-to-r from-gold-500 to-gold-600">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-900 mb-6">
+            <h2 className="text-3xl md:text-4xl font-heading font-semibold text-primary-900 mb-6">
               Precisa de uma perícia especializada?
             </h2>
             <p className="text-primary-800 text-lg mb-8 max-w-2xl mx-auto">

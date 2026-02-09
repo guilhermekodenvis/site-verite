@@ -1,7 +1,9 @@
+'use client'
+
 import Link from 'next/link'
-import Image from 'next/image'
-import { FiArrowRight, FiCheck, FiPhone, FiFileText } from 'react-icons/fi'
+import { FiArrowRight, FiCheck, FiPhone, FiImage, FiFileText, FiArrowUp } from 'react-icons/fi'
 import { IconType } from 'react-icons'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 interface ServicePageTemplateProps {
   icon: IconType
@@ -19,6 +21,34 @@ interface ServicePageTemplateProps {
   }[]
 }
 
+function ImagePlaceholder({ 
+  suggestion, 
+  aspectRatio = 'aspect-video',
+  icon: Icon = FiImage,
+  className = ''
+}: { 
+  suggestion: string
+  aspectRatio?: string
+  icon?: React.ElementType
+  className?: string
+}) {
+  return (
+    <div className={`relative ${aspectRatio} rounded-2xl overflow-hidden group ${className}`}>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-primary-50 to-gold-100/50" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shimmer" 
+           style={{ backgroundSize: '200% 100%' }} />
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+        <div className="w-14 h-14 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center mb-3 shadow-soft group-hover:scale-110 transition-transform duration-500">
+          <Icon className="w-6 h-6 text-primary-400" />
+        </div>
+        <p className="text-primary-500 text-sm font-medium">Espaço para imagem</p>
+        <p className="text-primary-400 text-xs mt-1 max-w-[200px]">{suggestion}</p>
+      </div>
+      <div className="absolute inset-0 border-2 border-dashed border-primary-200/50 rounded-2xl pointer-events-none" />
+    </div>
+  )
+}
+
 export default function ServicePageTemplate({
   icon: Icon,
   title,
@@ -31,138 +61,252 @@ export default function ServicePageTemplate({
   color,
   relatedServices,
 }: ServicePageTemplateProps) {
+  const contentReveal = useScrollReveal()
+  const areasReveal = useScrollReveal()
+  const processReveal = useScrollReveal()
+  const ctaReveal = useScrollReveal()
+
   return (
     <>
+      {/* Grain Overlay */}
+      <div className="grain-overlay" />
+
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <div className={`w-20 h-20 ${color} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
-              <Icon className="w-10 h-10" />
+      <section className="pt-32 pb-24 relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800" />
+          <div className="absolute inset-0 opacity-40 mesh-gradient-dark" />
+          
+          {/* Floating Shapes */}
+          <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 right-1/3 w-64 h-64 bg-gold-400/10 rounded-full blur-3xl animate-float-delayed" />
+          
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 opacity-[0.02]" 
+               style={{ 
+                 backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
+                 backgroundSize: '60px 60px'
+               }} />
+        </div>
+        
+        <div className="container-custom relative z-10">
+          <div className="max-w-4xl mx-auto text-center text-white animate-fade-in-up">
+            {/* Icon Badge */}
+            <div className={`w-20 h-20 ${color} rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-glow-gold`}>
+              <Icon className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4">
+            
+            {/* Title */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-semibold mb-6 tracking-tight">
               {title}
             </h1>
-            <p className="text-xl text-gold-400 font-medium mb-4">{subtitle}</p>
-            <p className="text-lg text-primary-200 leading-relaxed">
+            
+            {/* Subtitle Badge */}
+            <div className="inline-flex items-center px-5 py-2 glass-gold rounded-full text-gold-300 mb-6">
+              <span className="text-sm font-medium">{subtitle}</span>
+            </div>
+            
+            {/* Description */}
+            <p className="text-lg md:text-xl text-primary-200/90 leading-relaxed max-w-3xl mx-auto">
               {description}
             </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+              <Link href="/contato" className="btn-secondary">
+                <span>Solicitar Orçamento</span>
+                <FiArrowRight className="w-5 h-5" />
+              </Link>
+              <a href="tel:+5511999999999" className="btn-glass-dark">
+                <FiPhone className="w-5 h-5" />
+                <span>(11) 99999-9999</span>
+              </a>
+            </div>
           </div>
+        </div>
+        
+        {/* Bottom Wave */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 120" fill="none" className="w-full h-auto">
+            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V120Z" fill="white"/>
+          </svg>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white relative">
         <div className="container-custom">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Main Content */}
-            <div className="lg:col-span-2">
-              <h2 className="section-title mb-6">Sobre Este Serviço</h2>
-              
-              <div className="prose prose-lg max-w-none text-primary-600 mb-12">
-                {longDescription.map((paragraph, index) => (
-                  <p key={index} className="mb-4 leading-relaxed">{paragraph}</p>
-                ))}
+            <div className="lg:col-span-2 space-y-16">
+              {/* About Section */}
+              <div 
+                ref={contentReveal.ref}
+                className={`transition-all duration-700 ${
+                  contentReveal.isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <span className="section-label mb-4 inline-block">Detalhes</span>
+                <h2 className="section-title mb-8">Sobre Este Serviço</h2>
+                
+                <div className="prose prose-lg max-w-none text-primary-600 space-y-6">
+                  {longDescription.map((paragraph, index) => (
+                    <p key={index} className="leading-relaxed">{paragraph}</p>
+                  ))}
+                </div>
               </div>
               
               {/* Areas of Expertise */}
-              <div className="mb-12">
-                <h3 className="font-heading font-bold text-2xl text-primary-900 mb-6">
+              <div 
+                ref={areasReveal.ref}
+                className={`transition-all duration-700 ${
+                  areasReveal.isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <h3 className="font-heading font-semibold text-2xl text-primary-900 mb-8">
                   Áreas de Atuação
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {areas.map((area, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-4 bg-primary-50 rounded-xl">
-                      <div className="w-6 h-6 bg-gold-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div 
+                      key={index} 
+                      className="flex items-start gap-4 p-5 glass-card group"
+                      style={{ 
+                        transitionDelay: areasReveal.isRevealed ? `${index * 50}ms` : '0ms',
+                        opacity: areasReveal.isRevealed ? 1 : 0,
+                        transform: areasReveal.isRevealed ? 'translateY(0)' : 'translateY(20px)'
+                      }}
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-br from-gold-400 to-gold-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-soft group-hover:scale-110 transition-transform duration-300">
                         <FiCheck className="w-4 h-4 text-white" />
                       </div>
-                      <span className="text-primary-700">{area}</span>
+                      <span className="text-primary-700 font-medium">{area}</span>
                     </div>
                   ))}
                 </div>
               </div>
               
-              {/* Process */}
-              <div className="mb-12">
-                <h3 className="font-heading font-bold text-2xl text-primary-900 mb-6">
+              {/* Process Timeline */}
+              <div 
+                ref={processReveal.ref}
+                className={`transition-all duration-700 ${
+                  processReveal.isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <h3 className="font-heading font-semibold text-2xl text-primary-900 mb-8">
                   Nosso Processo de Trabalho
                 </h3>
-                <div className="space-y-4">
-                  {process.map((step, index) => (
-                    <div key={index} className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-primary-900 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                        {index + 1}
+                <div className="relative">
+                  {/* Timeline Line */}
+                  <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold-400 via-gold-500 to-gold-300 rounded-full" />
+                  
+                  <div className="space-y-6">
+                    {process.map((step, index) => (
+                      <div 
+                        key={index} 
+                        className="flex items-start gap-6 relative group"
+                        style={{ 
+                          transitionDelay: processReveal.isRevealed ? `${index * 100}ms` : '0ms',
+                          opacity: processReveal.isRevealed ? 1 : 0,
+                          transform: processReveal.isRevealed ? 'translateX(0)' : 'translateX(-20px)'
+                        }}
+                      >
+                        {/* Step Number */}
+                        <div className="w-10 h-10 bg-gradient-to-br from-primary-800 to-primary-900 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm shadow-soft z-10 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
+                          {index + 1}
+                        </div>
+                        
+                        {/* Step Content */}
+                        <div className="flex-1 glass-card p-5 group-hover:shadow-glass-lg transition-all duration-300">
+                          <p className="text-primary-700 leading-relaxed">{step}</p>
+                        </div>
                       </div>
-                      <div className="flex-1 pt-2">
-                        <p className="text-primary-700">{step}</p>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
               
               {/* Image Placeholder */}
-              <div className="mb-12">
-                <div className="w-full h-64 rounded-2xl bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <Image 
-                      src="/logo.jpg" 
-                      alt="Vérité Perícias" 
-                      width={80} 
-                      height={80}
-                      className="mx-auto mb-4 rounded-lg opacity-70"
-                    />
-                    <p className="text-sm text-primary-400">Espaço para imagem relacionada ao serviço</p>
-                  </div>
-                </div>
+              <div className="pt-4">
+                <ImagePlaceholder 
+                  suggestion="Foto ilustrativa do serviço (laboratório, equipamentos, equipe em ação)"
+                  aspectRatio="aspect-[16/9]"
+                  icon={FiImage}
+                />
               </div>
             </div>
             
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              {/* Benefits Card */}
-              <div className="bg-primary-50 rounded-2xl p-8 mb-8 sticky top-24">
-                <h3 className="font-heading font-bold text-xl text-primary-900 mb-6">
-                  Por que nos escolher?
-                </h3>
-                <ul className="space-y-4 mb-8">
-                  {benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start space-x-3">
-                      <FiCheck className="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-primary-700 text-sm">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="space-y-4">
-                  <Link href="/contato" className="btn-primary w-full text-center">
-                    Solicitar Orçamento
-                  </Link>
-                  <a href="tel:+5511999999999" className="btn-outline w-full text-center">
-                    <FiPhone className="mr-2 w-4 h-4" />
-                    Ligar Agora
-                  </a>
+              <div className="sticky top-28 space-y-6">
+                {/* Benefits Card */}
+                <div className="glass rounded-2xl p-8 shadow-glass-lg border border-white/60">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
+                      <FiCheck className="w-5 h-5 text-white" />
+                    </div>
+                    <h3 className="font-heading font-semibold text-lg text-primary-900">
+                      Por que nos escolher?
+                    </h3>
+                  </div>
+                  
+                  <ul className="space-y-4 mb-8">
+                    {benefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start gap-3 group">
+                        <div className="w-5 h-5 bg-gold-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-gold-200 transition-colors">
+                          <FiCheck className="w-3 h-3 text-gold-700" />
+                        </div>
+                        <span className="text-primary-600 text-sm leading-relaxed">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="space-y-3">
+                    <Link href="/contato" className="btn-secondary w-full justify-center text-sm">
+                      <span>Solicitar Orçamento</span>
+                    </Link>
+                    <a href="tel:+5511999999999" className="btn-outline w-full justify-center text-sm">
+                      <FiPhone className="w-4 h-4" />
+                      <span>Ligar Agora</span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-              
-              {/* Related Services */}
-              <div className="bg-white border border-primary-100 rounded-2xl p-8">
-                <h3 className="font-heading font-bold text-lg text-primary-900 mb-4">
-                  Outros Serviços
-                </h3>
-                <ul className="space-y-3">
-                  {relatedServices.map((service, index) => (
-                    <li key={index}>
-                      <Link 
-                        href={service.href}
-                        className="flex items-center justify-between text-primary-600 hover:text-primary-900 transition-colors group"
-                      >
-                        <span>{service.title}</span>
-                        <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                
+                {/* Related Services */}
+                <div className="glass-card p-6">
+                  <h3 className="font-heading font-semibold text-lg text-primary-900 mb-5">
+                    Outros Serviços
+                  </h3>
+                  <ul className="space-y-3">
+                    {relatedServices.map((service, index) => (
+                      <li key={index}>
+                        <Link 
+                          href={service.href}
+                          className="flex items-center justify-between p-3 rounded-xl text-primary-600 hover:text-primary-900 hover:bg-primary-50 transition-all duration-300 group"
+                        >
+                          <span className="text-sm font-medium">{service.title}</span>
+                          <FiArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="divider-gradient my-4" />
+                  <Link 
+                    href="/servicos" 
+                    className="flex items-center justify-center gap-2 text-gold-600 hover:text-gold-700 text-sm font-medium transition-colors"
+                  >
+                    <span>Ver todos os serviços</span>
+                    <FiArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+                
+                {/* Image Placeholder for Sidebar */}
+                <ImagePlaceholder 
+                  suggestion="Selo de certificação ou badge de qualidade"
+                  aspectRatio="aspect-square"
+                  icon={FiFileText}
+                />
               </div>
             </div>
           </div>
@@ -170,23 +314,36 @@ export default function ServicePageTemplate({
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-gold-500 to-gold-600">
-        <div className="container-custom">
+      <section className="py-24 relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gold-400 via-gold-500 to-gold-600" />
+        <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+        
+        {/* Animated Shapes */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-primary-900/10 rounded-full blur-3xl animate-float-delayed" />
+        
+        <div 
+          ref={ctaReveal.ref}
+          className={`container-custom relative z-10 transition-all duration-700 ${
+            ctaReveal.isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-900 mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-semibold text-primary-950 mb-6">
               Precisa de {title}?
             </h2>
-            <p className="text-primary-800 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-primary-900/80 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
               Entre em contato conosco para uma análise inicial do seu caso. 
               Nossa equipe de peritos especializados está pronta para ajudá-lo.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contato" className="btn-primary bg-primary-900 hover:bg-primary-800">
-                Solicitar Orçamento
-                <FiArrowRight className="ml-2 w-5 h-5" />
+              <Link href="/contato" className="btn-primary bg-primary-950 hover:bg-primary-900 shadow-glow-primary">
+                <span>Solicitar Orçamento</span>
+                <FiArrowRight className="w-5 h-5" />
               </Link>
-              <Link href="/servicos" className="btn-outline border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white">
-                Ver Todos os Serviços
+              <Link href="/servicos" className="btn-glass bg-white/20 hover:bg-white/40 text-primary-950">
+                <span>Ver Todos os Serviços</span>
               </Link>
             </div>
           </div>

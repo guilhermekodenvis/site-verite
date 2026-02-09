@@ -1,7 +1,11 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
-import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield } from 'react-icons/fi'
+import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield, FiCamera, FiImage } from 'react-icons/fi'
 import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel } from 'react-icons/fa'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { useEffect, useState, useRef } from 'react'
 
 const services = [
   {
@@ -9,49 +13,63 @@ const services = [
     title: 'Perícia Médica',
     description: 'Erros médicos, acidentes de trabalho (INSS), invalidez e danos à saúde.',
     href: '/servicos/pericia-medica',
-    color: 'bg-red-50 text-red-600',
+    color: 'from-red-500/20 to-red-600/10',
+    iconColor: 'text-red-500',
+    borderColor: 'border-red-500/20 hover:border-red-500/40',
   },
   {
     icon: FaCalculator,
     title: 'Perícia Contábil',
     description: 'Fraudes financeiras, avaliação patrimonial, cálculos trabalhistas e impostos.',
     href: '/servicos/pericia-contabil',
-    color: 'bg-blue-50 text-blue-600',
+    color: 'from-blue-500/20 to-blue-600/10',
+    iconColor: 'text-blue-500',
+    borderColor: 'border-blue-500/20 hover:border-blue-500/40',
   },
   {
     icon: FaHardHat,
     title: 'Perícia de Engenharia',
     description: 'Avaliação de imóveis, danos estruturais, construções, elétrica e mecânica.',
     href: '/servicos/pericia-engenharia',
-    color: 'bg-orange-50 text-orange-600',
+    color: 'from-orange-500/20 to-orange-600/10',
+    iconColor: 'text-orange-500',
+    borderColor: 'border-orange-500/20 hover:border-orange-500/40',
   },
   {
     icon: FaGavel,
     title: 'Perícia Criminal',
     description: 'Análise de local de crime, vestígios, balística, química e biologia forense.',
     href: '/servicos/pericia-criminal',
-    color: 'bg-purple-50 text-purple-600',
+    color: 'from-purple-500/20 to-purple-600/10',
+    iconColor: 'text-purple-500',
+    borderColor: 'border-purple-500/20 hover:border-purple-500/40',
   },
   {
     icon: FaFingerprint,
     title: 'Perícia Grafotécnica',
     description: 'Autenticidade de assinaturas, análise de documentos e fraudes na escrita.',
     href: '/servicos/pericia-grafotecnica',
-    color: 'bg-indigo-50 text-indigo-600',
+    color: 'from-indigo-500/20 to-indigo-600/10',
+    iconColor: 'text-indigo-500',
+    borderColor: 'border-indigo-500/20 hover:border-indigo-500/40',
   },
   {
     icon: FaLeaf,
     title: 'Perícia Ambiental',
     description: 'Questões ligadas ao meio ambiente e avaliação de seus impactos.',
     href: '/servicos/pericia-ambiental',
-    color: 'bg-green-50 text-green-600',
+    color: 'from-emerald-500/20 to-emerald-600/10',
+    iconColor: 'text-emerald-500',
+    borderColor: 'border-emerald-500/20 hover:border-emerald-500/40',
   },
   {
     icon: FaLaptop,
     title: 'Perícia em Informática',
     description: 'Crimes cibernéticos e análise de dados digitais.',
     href: '/servicos/pericia-informatica',
-    color: 'bg-cyan-50 text-cyan-600',
+    color: 'from-cyan-500/20 to-cyan-600/10',
+    iconColor: 'text-cyan-500',
+    borderColor: 'border-cyan-500/20 hover:border-cyan-500/40',
   },
 ]
 
@@ -79,100 +97,208 @@ const differentials = [
 ]
 
 const stats = [
-  { value: '500+', label: 'Perícias Realizadas' },
-  { value: '15+', label: 'Anos de Experiência' },
-  { value: '98%', label: 'Clientes Satisfeitos' },
-  { value: '7', label: 'Áreas de Atuação' },
+  { value: 500, suffix: '+', label: 'Perícias Realizadas' },
+  { value: 15, suffix: '+', label: 'Anos de Experiência' },
+  { value: 98, suffix: '%', label: 'Clientes Satisfeitos' },
+  { value: 7, suffix: '', label: 'Áreas de Atuação' },
 ]
 
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+  const [count, setCount] = useState(0)
+  const ref = useRef<HTMLSpanElement>(null)
+  const [hasAnimated, setHasAnimated] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          let start = 0
+          const duration = 2000
+          const step = (timestamp: number) => {
+            if (!start) start = timestamp
+            const progress = Math.min((timestamp - start) / duration, 1)
+            setCount(Math.floor(progress * value))
+            if (progress < 1) {
+              window.requestAnimationFrame(step)
+            }
+          }
+          window.requestAnimationFrame(step)
+        }
+      },
+      { threshold: 0.5 }
+    )
+
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [value, hasAnimated])
+
+  return <span ref={ref}>{count}{suffix}</span>
+}
+
+function ImagePlaceholder({ 
+  suggestion, 
+  aspectRatio = 'aspect-video',
+  icon: Icon = FiImage,
+  className = ''
+}: { 
+  suggestion: string
+  aspectRatio?: string
+  icon?: React.ElementType
+  className?: string
+}) {
+  return (
+    <div className={`relative ${aspectRatio} rounded-2xl overflow-hidden group ${className}`}>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-primary-50 to-gold-100/50" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shimmer" 
+           style={{ backgroundSize: '200% 100%' }} />
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+        <div className="w-16 h-16 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-soft group-hover:scale-110 transition-transform duration-500">
+          <Icon className="w-7 h-7 text-primary-400" />
+        </div>
+        <p className="text-primary-500 text-sm font-medium">Espaço para imagem</p>
+        <p className="text-primary-400 text-xs mt-1 max-w-[200px]">{suggestion}</p>
+      </div>
+      <div className="absolute inset-0 border-2 border-dashed border-primary-200/50 rounded-2xl pointer-events-none" />
+    </div>
+  )
+}
+
 export default function HomePage() {
+  const servicesReveal = useScrollReveal()
+  const aboutReveal = useScrollReveal()
+  const differentialsReveal = useScrollReveal()
+  const ctaReveal = useScrollReveal()
+
   return (
     <>
+      {/* Grain Overlay */}
+      <div className="grain-overlay" />
+
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20">
-        {/* Background */}
+      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        {/* Animated Background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800"></div>
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800" />
+          
+          {/* Mesh Gradient Overlay */}
+          <div className="absolute inset-0 opacity-60 mesh-gradient-dark" />
+          
+          {/* Animated Floating Shapes */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gold-400/10 rounded-full blur-3xl animate-float-delayed" />
+          <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-primary-400/10 rounded-full blur-3xl animate-float-slow" />
+          
+          {/* Subtle Grid Pattern */}
+          <div className="absolute inset-0 opacity-[0.03]" 
+               style={{ 
+                 backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
+                 backgroundSize: '50px 50px'
+               }} />
         </div>
         
         <div className="container-custom relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-white space-y-8">
-              <div className="inline-flex items-center px-4 py-2 bg-gold-500/20 border border-gold-500/30 rounded-full text-gold-400 text-sm">
-                <FiAward className="w-4 h-4 mr-2" />
-                Excelência em Perícias Judiciais
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left Content */}
+            <div className="text-white space-y-8 animate-fade-in-up">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 glass-gold rounded-full text-gold-300 text-sm">
+                <FiAward className="w-4 h-4" />
+                <span>Excelência em Perícias Judiciais</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight">
-                A <span className="text-gold-400">verdade</span> fundamentada em{' '}
-                <span className="text-gold-400">ciência</span> e{' '}
-                <span className="text-gold-400">expertise</span>
+              {/* Heading */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-semibold leading-[1.1] tracking-tight">
+                A <span className="text-gradient-gold bg-gradient-to-r from-gold-300 via-gold-400 to-gold-300">verdade</span> fundamentada em{' '}
+                <span className="text-gradient-gold bg-gradient-to-r from-gold-300 via-gold-400 to-gold-300">ciência</span> e{' '}
+                <span className="text-gradient-gold bg-gradient-to-r from-gold-300 via-gold-400 to-gold-300">expertise</span>
               </h1>
               
-              <p className="text-xl text-primary-200 leading-relaxed max-w-xl">
+              {/* Description */}
+              <p className="text-xl text-primary-200/90 leading-relaxed max-w-xl">
                 Somos especialistas em perícias judiciais, oferecendo laudos técnicos imparciais, 
                 precisos e fundamentados para todas as esferas do direito.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contato" className="btn-secondary">
-                  Solicitar Orçamento
-                  <FiArrowRight className="ml-2 w-5 h-5" />
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <Link href="/contato" className="btn-secondary group">
+                  <span>Solicitar Orçamento</span>
+                  <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <Link href="/servicos" className="btn-outline border-white text-white hover:bg-white hover:text-primary-900">
+                <Link href="/servicos" className="btn-glass-dark">
                   Conheça Nossos Serviços
                 </Link>
               </div>
               
-              <div className="flex items-center space-x-4 pt-4">
-                <div className="flex items-center space-x-2 text-primary-300">
-                  <FiPhone className="w-5 h-5 text-gold-400" />
+              {/* Contact Info */}
+              <div className="flex items-center gap-6 pt-4">
+                <a href="tel:+5511999999999" className="flex items-center gap-2 text-primary-300 hover:text-gold-400 transition-colors group">
+                  <div className="w-10 h-10 rounded-xl glass flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FiPhone className="w-4 h-4 text-gold-400" />
+                  </div>
                   <span>(11) 99999-9999</span>
-                </div>
+                </a>
               </div>
             </div>
             
-            {/* Hero Image Placeholder */}
-            <div className="hidden lg:block">
+            {/* Right Content - Hero Image & Stats */}
+            <div className="hidden lg:block animate-fade-in-left delay-300">
               <div className="relative">
-                <div className="w-full h-[500px] rounded-2xl bg-primary-800/50 flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <Image 
-                      src="/logo.jpg" 
-                      alt="Vérité Perícias" 
-                      width={200} 
-                      height={200}
-                      className="mx-auto mb-6 rounded-lg"
+                {/* Main Image Placeholder */}
+                <div className="relative z-10">
+                  <div className="glass-card-dark p-3">
+                    <ImagePlaceholder 
+                      suggestion="Foto profissional das sócias ou equipe no escritório"
+                      aspectRatio="aspect-[4/3]"
+                      icon={FiUsers}
                     />
-                    <div className="image-placeholder w-full h-48 rounded-xl">
-                      <div className="text-center p-4">
-                        <p className="text-sm">Espaço para imagem institucional</p>
-                        <p className="text-xs mt-1">Sugestão: Foto profissional das sócias</p>
-                      </div>
+                  </div>
+                </div>
+                
+                {/* Floating Stats Card */}
+                <div className="absolute -bottom-8 -left-8 z-20 glass p-6 rounded-2xl shadow-glass-lg animate-float">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
+                      <FiAward className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-heading font-semibold text-primary-900">15+</p>
+                      <p className="text-primary-500 text-sm">Anos de experiência</p>
                     </div>
                   </div>
                 </div>
-                {/* Decorative elements */}
-                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-gold-500/20 rounded-2xl -z-10"></div>
-                <div className="absolute -top-6 -right-6 w-32 h-32 bg-gold-500/10 rounded-2xl -z-10"></div>
+                
+                {/* Decorative Elements */}
+                <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-gold-400/30 rounded-2xl -z-10 animate-pulse-soft" />
+                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-gold-500/20 to-transparent rounded-2xl blur-xl -z-10" />
               </div>
             </div>
+          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-soft">
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
+            <div className="w-1 h-2 bg-white/60 rounded-full animate-slide-up" />
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white relative -mt-20 z-20">
+      <section className="relative z-20 -mt-12 pb-12">
         <div className="container-custom">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="glass rounded-3xl p-8 md:p-12 shadow-glass-lg border border-white/60">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-heading font-bold text-primary-900">
-                    {stat.value}
+                <div 
+                  key={index} 
+                  className="text-center group"
+                >
+                  <div className="text-4xl md:text-5xl font-heading font-semibold text-primary-900 mb-2 group-hover:text-gold-600 transition-colors duration-300">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </div>
-                  <div className="text-primary-600 mt-2">{stat.label}</div>
+                  <div className="text-primary-500 text-sm md:text-base">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -181,9 +307,19 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-primary-50">
-        <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+      <section className="py-24 bg-gradient-to-b from-white via-primary-50/50 to-white relative overflow-hidden">
+        {/* Background Decoration */}
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-gold-100/50 to-transparent opacity-60" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-radial from-primary-100/50 to-transparent opacity-60" />
+        
+        <div className="container-custom relative">
+          <div 
+            ref={servicesReveal.ref}
+            className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ${
+              servicesReveal.isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <span className="section-label mb-4 inline-block">Áreas de Atuação</span>
             <h2 className="section-title mb-6">Nossos Serviços</h2>
             <p className="section-subtitle mx-auto">
               Oferecemos uma ampla gama de serviços periciais, atendendo às mais diversas 
@@ -196,89 +332,135 @@ export default function HomePage() {
               <Link 
                 key={index} 
                 href={service.href}
-                className="card p-6 group hover:-translate-y-1"
+                className={`group relative p-6 rounded-2xl bg-white/60 backdrop-blur-sm border ${service.borderColor} 
+                           shadow-soft hover:shadow-glass-lg hover:-translate-y-2 
+                           transition-all duration-500 ease-smooth overflow-hidden`}
+                style={{ 
+                  transitionDelay: servicesReveal.isRevealed ? `${index * 75}ms` : '0ms',
+                  opacity: servicesReveal.isRevealed ? 1 : 0,
+                  transform: servicesReveal.isRevealed ? 'translateY(0)' : 'translateY(30px)'
+                }}
               >
-                <div className={`w-14 h-14 ${service.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <service.icon className="w-7 h-7" />
+                {/* Gradient Background on Hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                
+                <div className="relative z-10">
+                  <div className={`w-14 h-14 rounded-2xl bg-white shadow-soft flex items-center justify-center mb-4 
+                                 group-hover:scale-110 group-hover:shadow-lg transition-all duration-500`}>
+                    <service.icon className={`w-7 h-7 ${service.iconColor}`} />
+                  </div>
+                  <h3 className="font-heading font-semibold text-lg text-primary-900 mb-2 group-hover:text-primary-950">
+                    {service.title}
+                  </h3>
+                  <p className="text-primary-500 text-sm mb-4 leading-relaxed">
+                    {service.description}
+                  </p>
+                  <span className="inline-flex items-center text-gold-600 text-sm font-medium">
+                    Saiba mais
+                    <FiArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+                  </span>
                 </div>
-                <h3 className="font-heading font-semibold text-lg text-primary-900 mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-primary-600 text-sm mb-4">
-                  {service.description}
-                </p>
-                <span className="inline-flex items-center text-gold-600 text-sm font-medium group-hover:text-gold-700">
-                  Saiba mais
-                  <FiArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
               </Link>
             ))}
           </div>
           
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <Link href="/servicos" className="btn-primary">
-              Ver Todos os Serviços
-              <FiArrowRight className="ml-2 w-5 h-5" />
+              <span>Ver Todos os Serviços</span>
+              <FiArrowRight className="w-5 h-5" />
             </Link>
           </div>
         </div>
       </section>
 
       {/* About Preview Section */}
-      <section className="py-20 bg-white">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="order-2 lg:order-1">
+      <section className="py-24 bg-white relative overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute top-1/2 -translate-y-1/2 -left-48 w-96 h-96 bg-gold-100/30 rounded-full blur-3xl" />
+        
+        <div className="container-custom relative">
+          <div 
+            ref={aboutReveal.ref}
+            className={`grid lg:grid-cols-2 gap-16 items-center transition-all duration-1000 ${
+              aboutReveal.isRevealed ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {/* Image Side */}
+            <div className={`relative transition-all duration-700 delay-200 ${
+              aboutReveal.isRevealed ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
+            }`}>
+              <div className="relative">
+                {/* Main Image */}
+                <ImagePlaceholder 
+                  suggestion="Foto das sócias em reunião ou no ambiente de trabalho"
+                  aspectRatio="aspect-[4/3]"
+                  icon={FiUsers}
+                  className="shadow-soft-lg"
+                />
+                
+                {/* Secondary Image */}
+                <div className="absolute -bottom-8 -right-8 w-48 h-48 z-10">
+                  <div className="glass rounded-2xl p-2 shadow-glass-lg">
+                    <ImagePlaceholder 
+                      suggestion="Detalhe: Documento ou certificação"
+                      aspectRatio="aspect-square"
+                      icon={FiFileText}
+                    />
+                  </div>
+                </div>
+                
+                {/* Decorative Frame */}
+                <div className="absolute -top-4 -left-4 w-full h-full border-2 border-gold-200 rounded-2xl -z-10" />
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-gold-400/20 to-transparent rounded-2xl blur-xl -z-10" />
+              </div>
+            </div>
+
+            {/* Content Side */}
+            <div className={`transition-all duration-700 delay-400 ${
+              aboutReveal.isRevealed ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
+            }`}>
+              <span className="section-label mb-4 inline-block">Sobre Nós</span>
               <h2 className="section-title mb-6">
-                Conheça a <span className="text-gold-500">Vérité</span>
+                Conheça a <span className="text-gradient-gold">Vérité</span>
               </h2>
               <p className="text-primary-600 text-lg mb-6 leading-relaxed">
                 A Vérité é uma empresa especializada em perícias judiciais, fundada com o 
                 compromisso de fornecer laudos técnicos imparciais, precisos e fundamentados 
                 cientificamente.
               </p>
-              <p className="text-primary-600 mb-8 leading-relaxed">
+              <p className="text-primary-500 mb-8 leading-relaxed">
                 Nossa equipe é formada por profissionais altamente qualificados, com vasta 
                 experiência em suas respectivas áreas de atuação, garantindo a excelência 
                 em cada trabalho realizado.
               </p>
               
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-4 mb-10">
                 {[
                   'Laudos técnicos detalhados e fundamentados',
                   'Equipe multidisciplinar de peritos especializados',
                   'Atendimento em todo o território nacional',
                   'Compromisso com prazos e qualidade',
                 ].map((item, index) => (
-                  <li key={index} className="flex items-center space-x-3">
-                    <div className="w-6 h-6 bg-gold-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <FiCheck className="w-4 h-4 text-gold-600" />
+                  <li 
+                    key={index} 
+                    className="flex items-center gap-3 group"
+                    style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+                  >
+                    <div className="w-6 h-6 bg-gradient-to-br from-gold-100 to-gold-200 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <FiCheck className="w-3.5 h-3.5 text-gold-700" />
                     </div>
-                    <span className="text-primary-700">{item}</span>
+                    <span className="text-primary-600">{item}</span>
                   </li>
                 ))}
               </ul>
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/sobre" className="btn-primary">
-                  Conheça Nossa História
+                  <span>Conheça Nossa História</span>
                 </Link>
                 <Link href="/equipe" className="btn-outline">
-                  Nossa Equipe
+                  <span>Nossa Equipe</span>
                 </Link>
-              </div>
-            </div>
-            
-            <div className="order-1 lg:order-2">
-              <div className="relative">
-                <div className="w-full h-[400px] rounded-2xl image-placeholder">
-                  <div className="text-center p-8">
-                    <FiUsers className="w-16 h-16 mx-auto mb-4" />
-                    <p className="text-sm">Espaço para imagem da equipe</p>
-                    <p className="text-xs mt-2">Sugestão: Foto das sócias em ambiente profissional</p>
-                  </div>
-                </div>
-                <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gold-100 rounded-2xl -z-10"></div>
               </div>
             </div>
           </div>
@@ -286,52 +468,99 @@ export default function HomePage() {
       </section>
 
       {/* Differentials Section */}
-      <section className="py-20 bg-primary-900">
-        <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+      <section className="py-24 bg-primary-950 relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 mesh-gradient-dark opacity-40" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gold-400/5 rounded-full blur-3xl" />
+        
+        <div className="container-custom relative z-10">
+          <div 
+            ref={differentialsReveal.ref}
+            className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ${
+              differentialsReveal.isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-gold-500/20 text-gold-400 text-sm font-medium rounded-full border border-gold-500/30 mb-4">
+              Nossos Diferenciais
+            </span>
             <h2 className="section-title text-white mb-6">Por que escolher a Vérité?</h2>
-            <p className="text-primary-200 text-lg">
+            <p className="text-primary-300 text-lg">
               Nosso compromisso é com a verdade técnica e a excelência em cada laudo produzido.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {differentials.map((item, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-16 h-16 bg-gold-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                  <item.icon className="w-8 h-8 text-primary-900" />
+              <div 
+                key={index} 
+                className={`group text-center p-8 rounded-2xl glass-card-dark hover:bg-primary-900/60 
+                           transition-all duration-500`}
+                style={{ 
+                  transitionDelay: differentialsReveal.isRevealed ? `${index * 100}ms` : '0ms',
+                  opacity: differentialsReveal.isRevealed ? 1 : 0,
+                  transform: differentialsReveal.isRevealed ? 'translateY(0)' : 'translateY(30px)'
+                }}
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-gold-400 to-gold-600 rounded-2xl flex items-center justify-center mx-auto mb-6 
+                               shadow-glow-gold group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                  <item.icon className="w-8 h-8 text-primary-950" />
                 </div>
                 <h3 className="font-heading font-semibold text-lg text-white mb-3">
                   {item.title}
                 </h3>
-                <p className="text-primary-300 text-sm">
+                <p className="text-primary-400 text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
             ))}
           </div>
+          
+          {/* Image Suggestion */}
+          <div className="mt-16 max-w-4xl mx-auto">
+            <div className="glass-card-dark p-4">
+              <ImagePlaceholder 
+                suggestion="Galeria de certificações, prêmios ou equipe em ação"
+                aspectRatio="aspect-[21/9]"
+                icon={FiAward}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-gold-500 to-gold-600">
-        <div className="container-custom">
+      <section className="py-24 relative overflow-hidden">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gold-400 via-gold-500 to-gold-600" />
+        <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+        
+        {/* Animated Shapes */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-primary-900/10 rounded-full blur-3xl animate-float-delayed" />
+        
+        <div 
+          ref={ctaReveal.ref}
+          className={`container-custom relative z-10 transition-all duration-700 ${
+            ctaReveal.isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-900 mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-semibold text-primary-950 mb-6">
               Precisa de uma perícia judicial?
             </h2>
-            <p className="text-primary-800 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-primary-900/80 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
               Entre em contato conosco para uma análise inicial do seu caso. 
               Nossa equipe está pronta para atender suas necessidades.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contato" className="btn-primary bg-primary-900 hover:bg-primary-800">
-                Solicitar Orçamento
-                <FiArrowRight className="ml-2 w-5 h-5" />
+              <Link href="/contato" className="btn-primary bg-primary-950 hover:bg-primary-900 shadow-glow-primary">
+                <span>Solicitar Orçamento</span>
+                <FiArrowRight className="w-5 h-5" />
               </Link>
-              <a href="tel:+5511999999999" className="btn-outline border-primary-900 text-primary-900 hover:bg-primary-900 hover:text-white">
-                <FiPhone className="mr-2 w-5 h-5" />
-                (11) 99999-9999
+              <a href="tel:+5511999999999" className="btn-glass bg-white/20 hover:bg-white/40 text-primary-950">
+                <FiPhone className="w-5 h-5" />
+                <span>(11) 99999-9999</span>
               </a>
             </div>
           </div>
