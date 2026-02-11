@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { FiArrowRight, FiCheck, FiPhone, FiImage, FiFileText, FiArrowUp } from 'react-icons/fi'
+import Image from 'next/image'
+import { FiArrowRight, FiCheck, FiPhone, FiFileText, FiArrowUp } from 'react-icons/fi'
 import { FaUserMd, FaCalculator, FaHardHat, FaFingerprint, FaSignature, FaLeaf, FaLaptopCode } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
@@ -15,6 +16,17 @@ const iconMap = {
   'environmental': FaLeaf,
   'it': FaLaptopCode,
 } as const
+
+// Map icon names to service images
+const imageMap: Record<string, string> = {
+  'medical': '/images/medica.png',
+  'accounting': '/images/contabil.png',
+  'engineering': '/images/engenharia.png',
+  'criminal': '/images/criminal.png',
+  'graphotechnical': '/images/grafotecnica.png',
+  'environmental': '/images/ambiental.png',
+  'it': '/images/informatica.png',
+}
 
 type IconName = keyof typeof iconMap
 
@@ -34,34 +46,6 @@ interface ServicePageTemplateProps {
   }[]
 }
 
-function ImagePlaceholder({ 
-  suggestion, 
-  aspectRatio = 'aspect-video',
-  icon: Icon = FiImage,
-  className = ''
-}: { 
-  suggestion: string
-  aspectRatio?: string
-  icon?: React.ElementType
-  className?: string
-}) {
-  return (
-    <div className={`relative ${aspectRatio} rounded-2xl overflow-hidden group ${className}`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-primary-50 to-gold-100/50" />
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shimmer" 
-           style={{ backgroundSize: '200% 100%' }} />
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-14 h-14 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center mb-3 shadow-soft group-hover:scale-110 transition-transform duration-500">
-          <Icon className="w-6 h-6 text-primary-400" />
-        </div>
-        <p className="text-primary-500 text-sm font-medium">Espaço para imagem</p>
-        <p className="text-primary-400 text-xs mt-1 max-w-[200px]">{suggestion}</p>
-      </div>
-      <div className="absolute inset-0 border-2 border-dashed border-primary-200/50 rounded-2xl pointer-events-none" />
-    </div>
-  )
-}
-
 export default function ServicePageTemplate({
   iconName,
   title,
@@ -75,6 +59,7 @@ export default function ServicePageTemplate({
   relatedServices,
 }: ServicePageTemplateProps) {
   const Icon = iconMap[iconName]
+  const serviceImage = imageMap[iconName]
   const contentReveal = useScrollReveal()
   const areasReveal = useScrollReveal()
   const processReveal = useScrollReveal()
@@ -132,9 +117,9 @@ export default function ServicePageTemplate({
                 <span>Solicitar Orçamento</span>
                 <FiArrowRight className="w-5 h-5" />
               </Link>
-              <a href="tel:+5511999999999" className="btn-glass-dark">
+              <a href="tel:+5511982887949" className="btn-glass-dark">
                 <FiPhone className="w-5 h-5" />
-                <span>(11) 99999-9999</span>
+                <span>(11) 98288-7949</span>
               </a>
             </div>
           </div>
@@ -241,13 +226,16 @@ export default function ServicePageTemplate({
                 </div>
               </div>
               
-              {/* Image Placeholder */}
+              {/* Service Image */}
               <div className="pt-4">
-                <ImagePlaceholder 
-                  suggestion="Foto ilustrativa do serviço (laboratório, equipamentos, equipe em ação)"
-                  aspectRatio="aspect-[16/9]"
-                  icon={FiImage}
-                />
+                <div className="relative aspect-[16/9] rounded-2xl overflow-hidden">
+                  <Image
+                    src={serviceImage}
+                    alt={title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
             
@@ -280,7 +268,7 @@ export default function ServicePageTemplate({
                     <Link href="/contato" className="btn-secondary w-full justify-center text-sm">
                       <span>Solicitar Orçamento</span>
                     </Link>
-                    <a href="tel:+5511999999999" className="btn-outline w-full justify-center text-sm">
+                    <a href="tel:+5511982887949" className="btn-outline w-full justify-center text-sm">
                       <FiPhone className="w-4 h-4" />
                       <span>Ligar Agora</span>
                     </a>
@@ -315,12 +303,15 @@ export default function ServicePageTemplate({
                   </Link>
                 </div>
                 
-                {/* Image Placeholder for Sidebar */}
-                <ImagePlaceholder 
-                  suggestion="Selo de certificação ou badge de qualidade"
-                  aspectRatio="aspect-square"
-                  icon={FiFileText}
-                />
+                {/* Selo de Certificação */}
+                <div className="relative aspect-square rounded-2xl overflow-hidden">
+                  <Image
+                    src="/images/certificado.png"
+                    alt="Selo de certificação"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
               </div>
             </div>
           </div>

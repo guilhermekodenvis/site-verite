@@ -154,28 +154,27 @@ export default function Footer() {
                     <FiMapPin className="w-4 h-4 text-gold-500" />
                   </div>
                   <span className="text-primary-400 text-sm leading-relaxed group-hover:text-primary-300 transition-colors">
-                    Rua Exemplo, 123 - Centro<br />
-                    Cidade - Estado, CEP 00000-000
+                    Vinhedo - SP
                   </span>
                 </a>
               </li>
               <li>
-                <a href="tel:+5511999999999" className="flex items-center gap-3 group">
+                <a href="tel:+5511982887949" className="flex items-center gap-3 group">
                   <div className="w-8 h-8 glass-card-dark rounded-lg flex items-center justify-center flex-shrink-0 group-hover:border-gold-500/50 transition-colors">
                     <FiPhone className="w-4 h-4 text-gold-500" />
                   </div>
                   <span className="text-primary-400 text-sm group-hover:text-white transition-colors">
-                    (11) 99999-9999
+                    (11) 98288-7949
                   </span>
                 </a>
               </li>
               <li>
-                <a href="mailto:contato@verite.com.br" className="flex items-center gap-3 group">
+                <a href="mailto:prieto.eneida@gmail.com" className="flex items-center gap-3 group">
                   <div className="w-8 h-8 glass-card-dark rounded-lg flex items-center justify-center flex-shrink-0 group-hover:border-gold-500/50 transition-colors">
                     <FiMail className="w-4 h-4 text-gold-500" />
                   </div>
                   <span className="text-primary-400 text-sm group-hover:text-white transition-colors">
-                    contato@verite.com.br
+                    prieto.eneida@gmail.com
                   </span>
                 </a>
               </li>

@@ -1,69 +1,42 @@
 'use client'
 
-import { FiMail, FiPhone, FiMapPin, FiClock, FiSend, FiMessageSquare, FiImage, FiArrowUpRight } from 'react-icons/fi'
+import { FiMail, FiPhone, FiMapPin, FiClock, FiSend, FiMessageSquare, FiArrowUpRight } from 'react-icons/fi'
 import { FaWhatsapp, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useState } from 'react'
-
-function ImagePlaceholder({ 
-  suggestion, 
-  aspectRatio = 'aspect-video',
-  icon: Icon = FiImage,
-  className = ''
-}: { 
-  suggestion: string
-  aspectRatio?: string
-  icon?: React.ElementType
-  className?: string
-}) {
-  return (
-    <div className={`relative ${aspectRatio} rounded-2xl overflow-hidden group ${className}`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-primary-50 to-gold-100/50" />
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shimmer" 
-           style={{ backgroundSize: '200% 100%' }} />
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-16 h-16 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-soft group-hover:scale-110 transition-transform duration-500">
-          <Icon className="w-7 h-7 text-primary-400" />
-        </div>
-        <p className="text-primary-500 text-sm font-medium">Espaço para imagem</p>
-        <p className="text-primary-400 text-xs mt-1 max-w-[200px]">{suggestion}</p>
-      </div>
-      <div className="absolute inset-0 border-2 border-dashed border-primary-200/50 rounded-2xl pointer-events-none" />
-    </div>
-  )
-}
 
 const contactInfo = [
   {
     icon: FiPhone,
     title: 'Telefone',
-    content: '(11) 99999-9999',
+    content: '(11) 98288-7949',
     description: 'Ligue para nós',
-    href: 'tel:+5511999999999',
+    href: 'tel:+5511982887949',
     color: 'from-blue-400 to-blue-600',
   },
   {
     icon: FaWhatsapp,
     title: 'WhatsApp',
-    content: '(11) 99999-9999',
+    content: '(11) 98288-7949',
     description: 'Atendimento rápido',
-    href: 'https://wa.me/5511999999999',
+    href: 'https://wa.me/5511982887949',
     color: 'from-green-400 to-green-600',
   },
   {
     icon: FiMail,
     title: 'E-mail',
-    content: 'contato@veritepericias.com.br',
+    content: 'prieto.eneida@gmail.com',
     description: 'Envie sua mensagem',
-    href: 'mailto:contato@veritepericias.com.br',
+    href: 'mailto:prieto.eneida@gmail.com',
     color: 'from-gold-400 to-gold-600',
   },
   {
     icon: FiMapPin,
     title: 'Endereço',
-    content: 'Rua Exemplo, 123 - Centro',
-    description: 'São Paulo - SP',
+    content: 'Vinhedo - SP',
+    description: 'Localização',
     href: '#mapa',
     color: 'from-primary-400 to-primary-600',
   },
@@ -88,6 +61,8 @@ export default function ContatoPage() {
     mensagem: '',
     privacidade: false,
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -95,6 +70,44 @@ export default function ContatoPage() {
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('https://black-elephant.app.n8n.cloud/webhook/verite-contact-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: formData.nome,
+          email: formData.email,
+          telefone: formData.telefone,
+          tipo_pericia: formData.servico,
+          assunto: formData.assunto,
+          mensagem: formData.mensagem,
+        }),
+      })
+
+      if (!response.ok) throw new Error('Erro ao enviar')
+
+      setSubmitStatus('success')
+      setFormData({
+        nome: '',
+        email: '',
+        telefone: '',
+        servico: '',
+        assunto: '',
+        mensagem: '',
+        privacidade: false,
+      })
+    } catch {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -183,7 +196,7 @@ export default function ContatoPage() {
                   Preencha o formulário abaixo que retornaremos em até 24 horas úteis.
                 </p>
                 
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="group">
                       <label htmlFor="nome" className="block text-sm font-medium text-primary-700 mb-2">
@@ -230,7 +243,7 @@ export default function ContatoPage() {
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3.5 bg-white/50 border border-primary-200 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500 transition-all duration-300 placeholder:text-primary-300"
-                        placeholder="(11) 99999-9999"
+                        placeholder="(11) 98288-7949"
                       />
                     </div>
                     <div className="group">
@@ -305,10 +318,17 @@ export default function ContatoPage() {
                     </label>
                   </div>
                   
-                  <button type="submit" className="btn-primary w-full sm:w-auto">
+                  <button type="submit" disabled={isSubmitting} className="btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed">
                     <FiSend className="w-5 h-5" />
-                    <span>Enviar Mensagem</span>
+                    <span>{isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}</span>
                   </button>
+
+                  {submitStatus === 'success' && (
+                    <p className="text-green-600 text-sm font-medium mt-2">Mensagem enviada com sucesso! Retornaremos em breve.</p>
+                  )}
+                  {submitStatus === 'error' && (
+                    <p className="text-red-600 text-sm font-medium mt-2">Erro ao enviar mensagem. Tente novamente.</p>
+                  )}
                 </form>
               </div>
             </div>
@@ -354,7 +374,7 @@ export default function ContatoPage() {
                     Precisa de uma resposta imediata? Entre em contato pelo WhatsApp.
                   </p>
                   <a 
-                    href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20de%20perícia."
+                    href="https://wa.me/5511982887949?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20de%20perícia."
                     className="inline-flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl group"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -418,14 +438,16 @@ export default function ContatoPage() {
           </div>
           
           <div className="grid lg:grid-cols-3 gap-8">
-            {/* Map Placeholder */}
+            {/* Map / Office Image */}
             <div className="lg:col-span-2">
-              <ImagePlaceholder 
-                suggestion="Mapa do Google Maps mostrando a localização do escritório"
-                aspectRatio="aspect-[16/10]"
-                icon={FiMapPin}
-                className="shadow-soft"
-              />
+              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-soft">
+                <Image
+                  src="/images/escritorio.png"
+                  alt="Escritório Vérité Perícias"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
             
             {/* Address Details */}
@@ -441,9 +463,7 @@ export default function ContatoPage() {
                   <div className="glass p-4 rounded-xl">
                     <p>
                       <span className="block font-medium text-primary-900 mb-1">Escritório Principal</span>
-                      Rua Exemplo, 123 - Sala 1001<br />
-                      Centro - São Paulo - SP<br />
-                      CEP: 01234-567
+                      Vinhedo - SP
                     </p>
                   </div>
                   <p className="text-sm leading-relaxed">
@@ -493,7 +513,7 @@ export default function ContatoPage() {
               Nossa equipe está pronta para esclarecer todas as suas dúvidas.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:+5511999999999" className="btn-primary bg-primary-950 hover:bg-primary-900 shadow-glow-primary">
+              <a href="tel:+5511982887949" className="btn-primary bg-primary-950 hover:bg-primary-900 shadow-glow-primary">
                 <FiPhone className="w-5 h-5" />
                 <span>Ligar Agora</span>
               </a>

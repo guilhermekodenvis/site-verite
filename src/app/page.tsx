@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield, FiCamera, FiImage } from 'react-icons/fi'
+import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield } from 'react-icons/fi'
 import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useEffect, useState, useRef } from 'react'
@@ -98,7 +98,7 @@ const differentials = [
 
 const stats = [
   { value: 500, suffix: '+', label: 'Perícias Realizadas' },
-  { value: 15, suffix: '+', label: 'Anos de Experiência' },
+  { value: 30, suffix: '+', label: 'Anos de Experiência' },
   { value: 98, suffix: '%', label: 'Clientes Satisfeitos' },
   { value: 7, suffix: '', label: 'Áreas de Atuação' },
 ]
@@ -134,34 +134,6 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   }, [value, hasAnimated])
 
   return <span ref={ref}>{count}{suffix}</span>
-}
-
-function ImagePlaceholder({ 
-  suggestion, 
-  aspectRatio = 'aspect-video',
-  icon: Icon = FiImage,
-  className = ''
-}: { 
-  suggestion: string
-  aspectRatio?: string
-  icon?: React.ElementType
-  className?: string
-}) {
-  return (
-    <div className={`relative ${aspectRatio} rounded-2xl overflow-hidden group ${className}`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-primary-50 to-gold-100/50" />
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shimmer" 
-           style={{ backgroundSize: '200% 100%' }} />
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-soft group-hover:scale-110 transition-transform duration-500">
-          <Icon className="w-7 h-7 text-primary-400" />
-        </div>
-        <p className="text-primary-500 text-sm font-medium">Espaço para imagem</p>
-        <p className="text-primary-400 text-xs mt-1 max-w-[200px]">{suggestion}</p>
-      </div>
-      <div className="absolute inset-0 border-2 border-dashed border-primary-200/50 rounded-2xl pointer-events-none" />
-    </div>
-  )
 }
 
 export default function HomePage() {
@@ -231,28 +203,24 @@ export default function HomePage() {
                 </Link>
               </div>
               
-              {/* Contact Info */}
-              <div className="flex items-center gap-6 pt-4">
-                <a href="tel:+5511999999999" className="flex items-center gap-2 text-primary-300 hover:text-gold-400 transition-colors group">
-                  <div className="w-10 h-10 rounded-xl glass flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <FiPhone className="w-4 h-4 text-gold-400" />
-                  </div>
-                  <span>(11) 99999-9999</span>
-                </a>
-              </div>
+
             </div>
             
             {/* Right Content - Hero Image & Stats */}
             <div className="hidden lg:block animate-fade-in-left delay-300">
               <div className="relative">
-                {/* Main Image Placeholder */}
+                {/* Main Image */}
                 <div className="relative z-10">
                   <div className="glass-card-dark p-3">
-                    <ImagePlaceholder 
-                      suggestion="Foto profissional das sócias ou equipe no escritório"
-                      aspectRatio="aspect-[4/3]"
-                      icon={FiUsers}
-                    />
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+                      <Image
+                        src="/images/socias.png"
+                        alt="Sócias do Instituto Vérité"
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                    </div>
                   </div>
                 </div>
                 
@@ -263,7 +231,7 @@ export default function HomePage() {
                       <FiAward className="w-7 h-7 text-white" />
                     </div>
                     <div>
-                      <p className="text-2xl font-heading font-semibold text-primary-900">15+</p>
+                      <p className="text-2xl font-heading font-semibold text-primary-900">30+</p>
                       <p className="text-primary-500 text-sm">Anos de experiência</p>
                     </div>
                   </div>
@@ -277,12 +245,7 @@ export default function HomePage() {
           </div>
         </div>
         
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-soft">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-2 bg-white/60 rounded-full animate-slide-up" />
-          </div>
-        </div>
+
       </section>
 
       {/* Stats Section */}
@@ -391,21 +354,26 @@ export default function HomePage() {
             }`}>
               <div className="relative">
                 {/* Main Image */}
-                <ImagePlaceholder 
-                  suggestion="Foto das sócias em reunião ou no ambiente de trabalho"
-                  aspectRatio="aspect-[4/3]"
-                  icon={FiUsers}
-                  className="shadow-soft-lg"
-                />
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-soft-lg">
+                  <Image
+                    src="/images/eneida-reuniao.png"
+                    alt="Eneida em reunião"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 
                 {/* Secondary Image */}
                 <div className="absolute -bottom-8 -right-8 w-48 h-48 z-10">
                   <div className="glass rounded-2xl p-2 shadow-glass-lg">
-                    <ImagePlaceholder 
-                      suggestion="Detalhe: Documento ou certificação"
-                      aspectRatio="aspect-square"
-                      icon={FiFileText}
-                    />
+                    <div className="relative aspect-square rounded-xl overflow-hidden">
+                      <Image
+                        src="/images/satisfacao.png"
+                        alt="Satisfação e certificação"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
                 
@@ -516,14 +484,17 @@ export default function HomePage() {
             ))}
           </div>
           
-          {/* Image Suggestion */}
+          {/* Image */}
           <div className="mt-16 max-w-4xl mx-auto">
             <div className="glass-card-dark p-4">
-              <ImagePlaceholder 
-                suggestion="Galeria de certificações, prêmios ou equipe em ação"
-                aspectRatio="aspect-[21/9]"
-                icon={FiAward}
-              />
+              <div className="relative aspect-[21/9] rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/socias-conversando.png"
+                  alt="Sócias conversando"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -558,9 +529,9 @@ export default function HomePage() {
                 <span>Solicitar Orçamento</span>
                 <FiArrowRight className="w-5 h-5" />
               </Link>
-              <a href="tel:+5511999999999" className="btn-glass bg-white/20 hover:bg-white/40 text-primary-950">
+              <a href="tel:+5511982887949" className="btn-glass bg-white/20 hover:bg-white/40 text-primary-950">
                 <FiPhone className="w-5 h-5" />
-                <span>(11) 99999-9999</span>
+                <span>(11) 98288-7949</span>
               </a>
             </div>
           </div>

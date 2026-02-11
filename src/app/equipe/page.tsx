@@ -1,43 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { FiMail, FiPhone, FiLinkedin, FiAward, FiArrowRight, FiBookOpen, FiUser, FiImage } from 'react-icons/fi'
+import Image from 'next/image'
+import { FiMail, FiPhone, FiLinkedin, FiAward, FiArrowRight, FiBookOpen, FiUser } from 'react-icons/fi'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-
-function ImagePlaceholder({ 
-  suggestion, 
-  aspectRatio = 'aspect-video',
-  icon: Icon = FiImage,
-  className = ''
-}: { 
-  suggestion: string
-  aspectRatio?: string
-  icon?: React.ElementType
-  className?: string
-}) {
-  return (
-    <div className={`relative ${aspectRatio} rounded-2xl overflow-hidden group ${className}`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-primary-50 to-gold-100/50" />
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shimmer" 
-           style={{ backgroundSize: '200% 100%' }} />
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-20 h-20 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-soft group-hover:scale-110 transition-transform duration-500">
-          <Icon className="w-8 h-8 text-primary-400" />
-        </div>
-        <p className="text-primary-500 text-sm font-medium">Espaço para foto</p>
-        <p className="text-primary-400 text-xs mt-1 max-w-[180px]">{suggestion}</p>
-      </div>
-      <div className="absolute inset-0 border-2 border-dashed border-primary-200/50 rounded-2xl pointer-events-none" />
-    </div>
-  )
-}
 
 const teamMembers = [
   {
     name: 'Nome da Sócia 1',
     role: 'Sócia-Fundadora',
     specialization: 'Especialização Principal',
-    image: null,
+    image: '/images/eneida.png',
     bio: 'Breve biografia profissional destacando formação acadêmica, experiência e principais conquistas na área de perícias judiciais. Descreva aqui a trajetória profissional, cursos de especialização, tempo de atuação no mercado e diferenciais.',
     credentials: [
       'Graduação em [Área] pela [Universidade]',
@@ -51,14 +24,14 @@ const teamMembers = [
       'Área de especialização 3',
     ],
     email: 'socia1@verite.com.br',
-    phone: '(11) 99999-9999',
+    phone: '(11) 98288-7949',
     linkedin: '#',
   },
   {
     name: 'Nome da Sócia 2',
     role: 'Sócia-Fundadora',
     specialization: 'Especialização Principal',
-    image: null,
+    image: '/images/ana.png',
     bio: 'Breve biografia profissional destacando formação acadêmica, experiência e principais conquistas na área de perícias judiciais. Descreva aqui a trajetória profissional, cursos de especialização, tempo de atuação no mercado e diferenciais.',
     credentials: [
       'Graduação em [Área] pela [Universidade]',
@@ -72,7 +45,7 @@ const teamMembers = [
       'Área de especialização 3',
     ],
     email: 'socia2@verite.com.br',
-    phone: '(11) 99999-9999',
+    phone: '(11) 98288-7949',
     linkedin: '#',
   },
 ]
@@ -157,12 +130,14 @@ export default function EquipePage() {
                   <div className="relative max-w-md mx-auto lg:mx-0">
                     {/* Photo Card */}
                     <div className="glass rounded-3xl p-3 shadow-glass-lg group">
-                      <ImagePlaceholder 
-                        suggestion={`Foto profissional - ${member.name}`}
-                        aspectRatio="aspect-[4/5]"
-                        icon={FiUser}
-                        className="rounded-2xl"
-                      />
+                      <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+                        <Image
+                          src={member.image}
+                          alt={member.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                       
                       {/* Role Badge */}
                       <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 glass px-5 py-2.5 rounded-full shadow-glass">

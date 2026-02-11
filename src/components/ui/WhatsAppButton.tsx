@@ -5,7 +5,7 @@ import { FaWhatsapp } from 'react-icons/fa'
 import { FiPhone, FiMail, FiX, FiArrowUp } from 'react-icons/fi'
 
 export default function WhatsAppButton() {
-  const phoneNumber = '5511999999999'
+  const phoneNumber = '5511982887949'
   const message = 'Olá! Gostaria de mais informações sobre os serviços de perícia judicial.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   
@@ -52,38 +52,37 @@ export default function WhatsAppButton() {
         <FiArrowUp className="w-5 h-5 text-primary-700 group-hover:text-primary-900 transition-colors" />
       </button>
 
-      {/* Contact FAB */}
-      <div className={`fixed bottom-6 right-6 z-50 flex flex-col-reverse items-end gap-3 transition-all duration-700 ease-smooth
-                      ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* Expanded Options */}
+      <div className={`fixed bottom-24 right-6 z-50 flex flex-col items-end gap-3 transition-all duration-500
+                      ${isExpanded && isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+        {/* Email */}
+        <a
+          href="mailto:prieto.eneida@gmail.com"
+          className="w-12 h-12 glass rounded-full flex items-center justify-center shadow-glass hover:shadow-glass-lg hover:scale-110 transition-all duration-300 group"
+          aria-label="Enviar email"
+        >
+          <FiMail className="w-5 h-5 text-primary-700" />
+          <span className="absolute right-full mr-3 px-3 py-2 glass text-primary-900 text-sm rounded-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-glass">
+            Email
+          </span>
+        </a>
         
-        {/* Expanded Options */}
-        <div className={`flex flex-col gap-3 transition-all duration-500 ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
-          {/* Email */}
-          <a
-            href="mailto:contato@verite.com.br"
-            className="w-12 h-12 glass rounded-full flex items-center justify-center shadow-glass hover:shadow-glass-lg hover:scale-110 transition-all duration-300 group"
-            aria-label="Enviar email"
-          >
-            <FiMail className="w-5 h-5 text-primary-700" />
-            <span className="absolute right-full mr-3 px-3 py-2 glass text-primary-900 text-sm rounded-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-glass">
-              Email
-            </span>
-          </a>
-          
-          {/* Phone */}
-          <a
-            href="tel:+5511999999999"
-            className="w-12 h-12 glass rounded-full flex items-center justify-center shadow-glass hover:shadow-glass-lg hover:scale-110 transition-all duration-300 group"
-            aria-label="Ligar"
-          >
-            <FiPhone className="w-5 h-5 text-primary-700" />
-            <span className="absolute right-full mr-3 px-3 py-2 glass text-primary-900 text-sm rounded-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-glass">
-              Ligar
-            </span>
-          </a>
-        </div>
+        {/* Phone */}
+        <a
+          href="tel:+5511982887949"
+          className="w-12 h-12 glass rounded-full flex items-center justify-center shadow-glass hover:shadow-glass-lg hover:scale-110 transition-all duration-300 group"
+          aria-label="Ligar"
+        >
+          <FiPhone className="w-5 h-5 text-primary-700" />
+          <span className="absolute right-full mr-3 px-3 py-2 glass text-primary-900 text-sm rounded-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-glass">
+            Ligar
+          </span>
+        </a>
+      </div>
 
-        {/* Main WhatsApp Button */}
+      {/* Main WhatsApp Button */}
+      <div className={`fixed bottom-6 right-6 z-50 transition-all duration-700 ease-smooth
+                      ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="relative">
           <a
             href={whatsappUrl}

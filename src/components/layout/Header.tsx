@@ -110,7 +110,7 @@ export default function Header() {
               </div>
               <div className="flex flex-col">
                 <span className={`font-heading font-semibold text-xl transition-colors duration-300 ${isScrolled ? 'text-primary-900' : 'text-white'}`}>
-                  Vérité
+                  Instituto Vérité
                 </span>
                 <span className={`text-xs transition-colors duration-300 -mt-1 ${isScrolled ? 'text-primary-500' : 'text-primary-300'}`}>
                   Perícias Judiciais

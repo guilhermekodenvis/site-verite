@@ -1,36 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { FiCheck, FiTarget, FiEye, FiHeart, FiAward, FiUsers, FiFileText, FiShield, FiArrowRight, FiImage } from 'react-icons/fi'
+import Image from 'next/image'
+import { FiCheck, FiTarget, FiEye, FiHeart, FiAward, FiUsers, FiFileText, FiShield, FiArrowRight } from 'react-icons/fi'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-
-function ImagePlaceholder({ 
-  suggestion, 
-  aspectRatio = 'aspect-video',
-  icon: Icon = FiImage,
-  className = ''
-}: { 
-  suggestion: string
-  aspectRatio?: string
-  icon?: React.ElementType
-  className?: string
-}) {
-  return (
-    <div className={`relative ${aspectRatio} rounded-2xl overflow-hidden group ${className}`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-primary-50 to-gold-100/50" />
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shimmer" 
-           style={{ backgroundSize: '200% 100%' }} />
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-14 h-14 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center mb-3 shadow-soft group-hover:scale-110 transition-transform duration-500">
-          <Icon className="w-6 h-6 text-primary-400" />
-        </div>
-        <p className="text-primary-500 text-sm font-medium">Espaço para imagem</p>
-        <p className="text-primary-400 text-xs mt-1 max-w-[200px]">{suggestion}</p>
-      </div>
-      <div className="absolute inset-0 border-2 border-dashed border-primary-200/50 rounded-2xl pointer-events-none" />
-    </div>
-  )
-}
 
 const values = [
   {
@@ -172,12 +145,14 @@ export default function SobrePage() {
               historyReveal.isRevealed ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             }`}>
               <div className="relative">
-                <ImagePlaceholder 
-                  suggestion="Foto do escritório, fachada ou recepção"
-                  aspectRatio="aspect-[4/3]"
-                  icon={FiUsers}
-                  className="shadow-soft-lg"
-                />
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-soft-lg">
+                  <Image
+                    src="/images/socias.png"
+                    alt="Sócias do Instituto Vérité"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 
                 {/* Floating Card */}
                 <div className="absolute -bottom-8 -left-8 glass p-6 rounded-2xl shadow-glass-lg animate-float z-10">
@@ -186,7 +161,7 @@ export default function SobrePage() {
                       <FiAward className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-2xl font-heading font-semibold text-primary-900">15+</p>
+                      <p className="text-2xl font-heading font-semibold text-primary-900">30+</p>
                       <p className="text-primary-500 text-sm">Anos de experiência</p>
                     </div>
                   </div>
