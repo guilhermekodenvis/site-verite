@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório de Atualizações — Site Vérité Perícias</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm 18mm 20mm 18mm;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.6;
+      color: #1a1a2e;
+      background: #fff;
+      padding: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @media print {
+      body { padding: 0; max-width: none; }
+      .no-print { display: none !important; }
+      .page-break { page-break-before: always; }
+    }
+
+    /* Header */
+    .report-header {
+      text-align: center;
+      border-bottom: 3px solid #1a2744;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+    .report-header h1 {
+      font-size: 22pt;
+      color: #1a2744;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .report-header .subtitle {
+      font-size: 12pt;
+      color: #555;
+      margin-top: 6px;
+    }
+    .report-header .meta {
+      font-size: 9pt;
+      color: #888;
+      margin-top: 12px;
+    }
+    .report-header .meta span {
+      margin: 0 12px;
+    }
+
+    /* Sections */
+    h2 {
+      font-size: 14pt;
+      color: #1a2744;
+      border-left: 4px solid #c9a84c;
+      padding-left: 12px;
+      margin: 28px 0 14px 0;
+    }
+    h3 {
+      font-size: 11.5pt;
+      color: #333;
+      margin: 16px 0 8px 0;
+      font-weight: 600;
+    }
+
+    /* Cards */
+    .change-card {
+      background: #f8f9fc;
+      border: 1px solid #e0e4ed;
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+    .change-card .card-title {
+      font-weight: 700;
+      font-size: 11pt;
+      color: #1a2744;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 8pt;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+    }
+    .badge-new { background: #d4edda; color: #155724; }
+    .badge-edit { background: #fff3cd; color: #856404; }
+    .badge-remove { background: #f8d7da; color: #721c24; }
+    .badge-style { background: #d6e9ff; color: #004085; }
+    .badge-fix { background: #e2d5f1; color: #4a1a7a; }
+
+    .change-card p, .change-card ul {
+      font-size: 10.5pt;
+      color: #444;
+    }
+    .change-card ul {
+      margin-left: 18px;
+      margin-top: 4px;
+    }
+    .change-card ul li {
+      margin-bottom: 3px;
+    }
+
+    /* Summary table */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 10.5pt;
+    }
+    .summary-table th {
+      background: #1a2744;
+      color: #fff;
+      text-align: left;
+      padding: 8px 12px;
+      font-weight: 600;
+    }
+    .summary-table td {
+      border-bottom: 1px solid #e0e4ed;
+      padding: 7px 12px;
+      vertical-align: top;
+    }
+    .summary-table tr:nth-child(even) td {
+      background: #f8f9fc;
+    }
+
+    /* Files list */
+    .file-path {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 9.5pt;
+      background: #eef1f6;
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #1a2744;
+    }
+
+    /* Footer */
+    .report-footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 2px solid #e0e4ed;
+      text-align: center;
+      font-size: 9pt;
+      color: #999;
+    }
+
+    /* Print button */
+    .print-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #1a2744;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 12pt;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+    .print-btn:hover { background: #0f1d3a; }
+
+    .highlight { color: #c9a84c; font-weight: 600; }
+    .strikethrough { text-decoration: line-through; color: #b44; }
+    .arrow { color: #888; margin: 0 4px; }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn no-print" onclick="window.print()">📄 Salvar como PDF</button>
+
+  <!-- HEADER -->
+  <div class="report-header">
+    <h1>Relatório de Atualizações</h1>
+    <div class="subtitle">Site Vérité Perícias — verite.com.br</div>
+    <div class="meta">
+      <span>Data: Março de 2026</span>
+      <span>|</span>
+      <span>Desenvolvido por: Black Elephant</span>
+      <span>|</span>
+      <span>Solicitante: Eneida Prieto</span>
+    </div>
+  </div>
+
+  <!-- RESUMO EXECUTIVO -->
+  <h2>Resumo Executivo</h2>
+  <p style="margin-bottom:12px;">
+    Conforme reunião realizada em 09/03/2026 com a cliente Eneida Prieto, foram implementadas <strong>16 alterações</strong> no site da Vérité Perícias, abrangendo:
+  </p>
+  <table class="summary-table">
+    <tr>
+      <th>Categoria</th>
+      <th>Qtd.</th>
+      <th>Descrição</th>
+    </tr>
+    <tr>
+      <td><span class="badge badge-new">Novo</span></td>
+      <td>2</td>
+      <td>Novas páginas de serviço criadas</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-edit">Alterado</span></td>
+      <td>9</td>
+      <td>Conteúdo, nomes e ordem de serviços atualizados</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-remove">Removido</span></td>
+      <td>3</td>
+      <td>Seções e conteúdos removidos</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-style">Visual</span></td>
+      <td>1</td>
+      <td>Ajuste de cores do site</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-fix">UX Fix</span></td>
+      <td>1</td>
+      <td>Correção de interação do botão flutuante</td>
+    </tr>
+  </table>
+
+  <!-- 1. CORES -->
+  <h2>1. Ajuste Visual — Cores do Site</h2>
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-style">Visual</span> Clareamento do azul de fundo (~20%)</div>
+    <p>As cores primárias escuras do site foram clareadas em aproximadamente 20% para melhorar a leveza visual.</p>
+    <ul>
+      <li><strong>primary-800:</strong> <span class="strikethrough">#0d1425</span> <span class="arrow">→</span> <strong>#1a2744</strong></li>
+      <li><strong>primary-900:</strong> <span class="strikethrough">#010b21</span> <span class="arrow">→</span> <strong>#0f1d3a</strong></li>
+      <li><strong>primary-950:</strong> <span class="strikethrough">#000714</span> <span class="arrow">→</span> <strong>#0a1628</strong></li>
+    </ul>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">tailwind.config.ts</span></p>
+  </div>
+
+  <!-- 2. EQUIPE -->
+  <h2>2. Página de Equipe</h2>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-remove">Removido</span> Remoção de Ana Cláudia</div>
+    <p>O perfil de Ana Cláudia foi completamente removido da página de equipe. Apenas Eneida Prieto permanece como membro exibido.</p>
+  </div>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-edit">Alterado</span> Atualização completa do perfil de Eneida Prieto</div>
+    <p>O perfil foi atualizado com todos os dados profissionais fornecidos pela cliente:</p>
+    <ul>
+      <li><strong>Cargo:</strong> Sócia-Fundadora, CEO</li>
+      <li><strong>Órgão de Classe:</strong> CRO/SP nº 23110</li>
+      <li><strong>Formação:</strong> Odontologia e especialização em Odontologia Legal</li>
+      <li><strong>Carreira:</strong> Concurso Público para Perito Criminal (1993), Academia de Polícia da Polícia Civil do Estado de São Paulo</li>
+      <li><strong>Experiência:</strong> Perícias Criminalísticas de São Bernardo do Campo → Documentoscopia (20 anos) → Diretora de Núcleo na Sede da SPTC (2020-2025) → Aposentadoria após 32 anos</li>
+      <li><strong>Destaque:</strong> Milhares de perícias grafotécnicas e documentoscópicas realizadas</li>
+    </ul>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/app/equipe/page.tsx</span></p>
+  </div>
+
+  <!-- 3. SERVIÇOS -->
+  <h2>3. Reorganização dos Serviços</h2>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-edit">Alterado</span> Nova ordem dos serviços (de 7 para 9 áreas)</div>
+    <p>Os serviços foram reordenados em <strong>todos os locais do site</strong> (homepage, página de serviços, menu de navegação, rodapé) conforme a seguinte ordem:</p>
+    <table class="summary-table" style="margin-top:8px;">
+      <tr><th>#</th><th>Serviço</th><th>Status</th></tr>
+      <tr><td>1</td><td>Perícia Documentoscópica/Grafotécnica</td><td><span class="badge badge-edit">Renomeado</span></td></tr>
+      <tr><td>2</td><td>Perícia em Assinaturas Digitais e Eletrônicas</td><td><span class="badge badge-new">Novo</span></td></tr>
+      <tr><td>3</td><td>Perícia Médica</td><td>Mantido</td></tr>
+      <tr><td>4</td><td>Perícia Odontológica</td><td><span class="badge badge-new">Novo</span></td></tr>
+      <tr><td>5</td><td>Perícia de Engenharia</td><td>Mantido</td></tr>
+      <tr><td>6</td><td>Perícia Contábil</td><td>Mantido</td></tr>
+      <tr><td>7</td><td>Perícia Ambiental</td><td>Mantido</td></tr>
+      <tr><td>8</td><td>Perícia de Informática</td><td>Mantido</td></tr>
+      <tr><td>9</td><td>Perícia Criminal/Cível</td><td><span class="badge badge-edit">Renomeado</span></td></tr>
+    </table>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivos: <span class="file-path">src/app/page.tsx</span>, <span class="file-path">src/app/servicos/page.tsx</span>, <span class="file-path">src/components/layout/Header.tsx</span>, <span class="file-path">src/components/layout/Footer.tsx</span></p>
+  </div>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-edit">Alterado</span> Estatística atualizada: "7 Áreas" → "9 Áreas de Atuação"</div>
+    <p>O número de áreas de atuação foi atualizado de 7 para 9 na homepage (seção de estatísticas e seção hero).</p>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/app/page.tsx</span></p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 4. NOVAS PÁGINAS -->
+  <h2>4. Novas Páginas de Serviço</h2>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-new">Novo</span> Perícia em Assinaturas Digitais e Eletrônicas</div>
+    <p>Página criada com o conteúdo fornecido pela cliente, abordando:</p>
+    <ul>
+      <li>Transformação tecnológica e crescimento de documentos digitais</li>
+      <li>Dispositivos móveis e extração de dados</li>
+      <li>Ferramentas específicas de análise de assinaturas digitais</li>
+      <li>Peritos treinados com procedimentos rigorosos</li>
+      <li>Áreas de atuação: contratos digitais, procurações eletrônicas, certificação digital, laudos de autenticidade</li>
+    </ul>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/app/servicos/pericia-digital/page.tsx</span> <em>(criado)</em></p>
+  </div>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-new">Novo</span> Perícia Odontológica (Odontologia Legal)</div>
+    <p>Página criada com o conteúdo fornecido pela cliente, abordando:</p>
+    <ul>
+      <li>Odontologia Legal e Ciências Forenses</li>
+      <li>Erros odontológicos (imperícia, imprudência, negligência)</li>
+      <li>Auditorias e seguros odontológicos</li>
+      <li>Área trabalhista ligada à odontologia</li>
+    </ul>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/app/servicos/pericia-odontologica/page.tsx</span> <em>(criado)</em></p>
+  </div>
+
+  <!-- 5. RENOMEAÇÕES e EDIÇÕES DE SERVIÇO -->
+  <h2>5. Alterações em Serviços Existentes</h2>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-edit">Alterado</span> Perícia Grafotécnica → Perícia Documentoscópica/Grafotécnica</div>
+    <p>O serviço foi renomeado para melhor refletir a abrangência da área. A descrição foi atualizada para incluir: "área dedicada a averiguar fraudes em documentos como montagens, adulterações/alterações, falsificações de escrita e etc."</p>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/app/servicos/pericia-grafotecnica/page.tsx</span></p>
+  </div>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-edit">Alterado</span> Perícia Criminal → Perícia Criminal/Cível</div>
+    <p>Serviço renomeado e áreas de atuação atualizadas:</p>
+    <ul>
+      <li><span class="strikethrough">Balística forense e análise de disparos de arma de fogo</span> — <strong>removido</strong></li>
+      <li><span class="strikethrough">Química forense e análise de substâncias</span> — <strong>removido</strong></li>
+      <li><span class="strikethrough">Biologia forense e genética</span> — <strong>removido</strong></li>
+      <li>"Acidentes de trânsito <span class="strikethrough">com vítimas</span>" — ajustado para "Acidentes de trânsito"</li>
+      <li>Mantidos: Análise de local de crime, Vestígios papilares, Documentoscopia, Incêndios e explosões</li>
+    </ul>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/app/servicos/pericia-criminal/page.tsx</span></p>
+  </div>
+
+  <!-- 6. REMOÇÕES -->
+  <h2>6. Seções e Conteúdos Removidos</h2>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-remove">Removido</span> Seção "Nosso Processo de Trabalho"</div>
+    <p>A seção "Nosso Processo de Trabalho" foi removida de <strong>todas as páginas individuais de serviços</strong> (via remoção do componente no template compartilhado). A prop <code>process</code> foi removida de todas as 9 páginas de serviço.</p>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/components/services/ServicePageTemplate.tsx</span> + todas as páginas de serviço</p>
+  </div>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-remove">Removido</span> Seção "Como Funciona"</div>
+    <p>A seção "Como Funciona" (com subtítulo "Nosso processo de trabalho é transparente e eficiente") foi removida da página de listagem de serviços.</p>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/app/servicos/page.tsx</span></p>
+  </div>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-remove">Removido</span> Foto "Sócias Conversando"</div>
+    <p>A imagem <code>/images/socias-conversando.png</code> e todo o bloco visual associado foram removidos da homepage.</p>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/app/page.tsx</span></p>
+  </div>
+
+  <!-- 7. DIFERENCIAL -->
+  <h2>7. Destaque do Diferencial — Academia de Polícia</h2>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-edit">Alterado</span> Texto inserido em "Nossa História" e "Conheça a Vérité"</div>
+    <p>O seguinte texto diferencial foi inserido em dois locais estratégicos do site:</p>
+    <blockquote style="border-left:3px solid #c9a84c; padding:8px 14px; margin:10px 0; background:#fdf8e8; font-style:italic; font-size:10.5pt;">
+      "Com formação em Academia de Polícia Civil do Estado de São Paulo e com o mínimo de 25 anos de experiência em laudos periciais, que após décadas de dedicação na área criminal na SPTCSP dirigiu seu olhar para toda a área judicial."
+    </blockquote>
+    <ul>
+      <li><strong>Página Sobre</strong> — Inserido no primeiro parágrafo de "Nossa História", após menção ao "âmbito judicial"</li>
+      <li><strong>Homepage</strong> — Inserido na seção "Conheça a Vérité", no segundo parágrafo após "altamente qualificados"</li>
+    </ul>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivos: <span class="file-path">src/app/sobre/page.tsx</span>, <span class="file-path">src/app/page.tsx</span></p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 8. UX FIX -->
+  <h2>8. Correção de UX — Botão WhatsApp</h2>
+
+  <div class="change-card">
+    <div class="card-title"><span class="badge badge-fix">UX Fix</span> Botão flutuante de contato (WhatsApp / Email / Telefone)</div>
+    <p><strong>Problema:</strong> Ao passar o mouse sobre o botão do WhatsApp, as opções de Email e Telefone apareciam, mas fechavam imediatamente ao tentar mover o cursor até elas, impedindo o clique.</p>
+    <p style="margin-top:6px;"><strong>Solução:</strong> As opções expandidas e o botão principal foram agrupados dentro de um mesmo contêiner com hover unificado. Agora o cursor pode se mover livremente entre o botão e as opções sem que o menu feche.</p>
+    <p style="margin-top:6px;font-size:9.5pt;color:#888;">Arquivo: <span class="file-path">src/components/ui/WhatsAppButton.tsx</span></p>
+  </div>
+
+  <!-- 9. ARQUIVOS MODIFICADOS -->
+  <h2>9. Relação de Arquivos Alterados</h2>
+
+  <table class="summary-table">
+    <tr>
+      <th>Arquivo</th>
+      <th>Ação</th>
+    </tr>
+    <tr>
+      <td><span class="file-path">tailwind.config.ts</span></td>
+      <td>Cores primárias clareadas ~20%</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/app/page.tsx</span></td>
+      <td>Serviços reordenados, foto removida, texto diferencial, stats 7→9</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/app/equipe/page.tsx</span></td>
+      <td>Ana Cláudia removida, Eneida Prieto atualizada</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/app/sobre/page.tsx</span></td>
+      <td>Texto diferencial inserido</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/app/servicos/page.tsx</span></td>
+      <td>9 serviços reordenados, "Como Funciona" removido</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/app/servicos/pericia-grafotecnica/page.tsx</span></td>
+      <td>Renomeado → Documentoscópica/Grafotécnica</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/app/servicos/pericia-criminal/page.tsx</span></td>
+      <td>Renomeado → Criminal/Cível, áreas removidas</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/app/servicos/pericia-digital/page.tsx</span></td>
+      <td><strong>Criado</strong> — Assinaturas Digitais e Eletrônicas</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/app/servicos/pericia-odontologica/page.tsx</span></td>
+      <td><strong>Criado</strong> — Perícia Odontológica</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/components/services/ServicePageTemplate.tsx</span></td>
+      <td>Seção "Processo de Trabalho" removida, novos ícones</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/components/layout/Header.tsx</span></td>
+      <td>Menu de serviços atualizado (9 itens, nova ordem)</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/components/layout/Footer.tsx</span></td>
+      <td>Links de serviços atualizados (9 itens, nova ordem)</td>
+    </tr>
+    <tr>
+      <td><span class="file-path">src/components/ui/WhatsAppButton.tsx</span></td>
+      <td>Correção de hover UX no botão flutuante</td>
+    </tr>
+    <tr>
+      <td>Todas as 7 páginas de serviço originais</td>
+      <td>Prop <code>process</code> removida</td>
+    </tr>
+  </table>
+
+  <!-- 10. PENDÊNCIAS -->
+  <h2>10. Pendências (Ação Manual Necessária)</h2>
+
+  <div class="change-card" style="border-color:#f0c040;">
+    <div class="card-title">⚠ Itens que requerem ação manual</div>
+    <ul>
+      <li><strong>Foto da Eneida:</strong> Substituir a foto atual por versão com cabelo solto em <span class="file-path">/public/images/</span></li>
+      <li><strong>Imagem de Perícia Digital:</strong> Adicionar imagem <span class="file-path">/public/images/digital.png</span> para a nova página de serviço</li>
+      <li><strong>Imagem de Perícia Odontológica:</strong> Adicionar imagem <span class="file-path">/public/images/odontologica.png</span> para a nova página de serviço</li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    <p>Vérité Perícias — Relatório de Atualizações do Site &bull; Março 2026</p>
+    <p style="margin-top:4px;">Elaborado por Black Elephant</p>
+  </div>
+
+</body>
+</html>
