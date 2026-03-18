@@ -8,13 +8,15 @@ import { FiMenu, FiX, FiChevronDown, FiArrowRight } from 'react-icons/fi'
 import { useHeaderScroll } from '@/hooks/useScrollReveal'
 
 const services = [
+  { name: 'Perícia Documentoscópica/ Grafotécnica', href: '/servicos/pericia-grafotecnica', icon: '✍️' },
+  { name: 'Assinaturas Digitais e Eletrônicas', href: '/servicos/pericia-digital', icon: '📝' },
   { name: 'Perícia Médica', href: '/servicos/pericia-medica', icon: '🩺' },
-  { name: 'Perícia Contábil', href: '/servicos/pericia-contabil', icon: '📊' },
+  { name: 'Perícia Odontológica', href: '/servicos/pericia-odontologica', icon: '🦷' },
   { name: 'Perícia de Engenharia', href: '/servicos/pericia-engenharia', icon: '🏗️' },
-  { name: 'Perícia Criminal', href: '/servicos/pericia-criminal', icon: '🔍' },
-  { name: 'Perícia Grafotécnica', href: '/servicos/pericia-grafotecnica', icon: '✍️' },
+  { name: 'Perícia Contábil', href: '/servicos/pericia-contabil', icon: '📊' },
   { name: 'Perícia Ambiental', href: '/servicos/pericia-ambiental', icon: '🌿' },
   { name: 'Perícia em Informática', href: '/servicos/pericia-informatica', icon: '💻' },
+  { name: 'Perícia Criminal/Cível', href: '/servicos/pericia-criminal', icon: '🔍' },
 ]
 
 const navigation = [
@@ -99,13 +101,13 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="relative">
-                <div className={`absolute inset-0 bg-gold-400/20 rounded-xl blur-xl transition-opacity duration-300 ${isScrolled ? 'opacity-0' : 'opacity-100 group-hover:opacity-100'}`} />
+                <div className={`absolute inset-0 bg-gold-500/20 rounded-xl blur-xl transition-opacity duration-300 ${isScrolled ? 'opacity-0' : 'opacity-100 group-hover:opacity-100'}`} />
                 <Image 
-                  src="/logo.jpg" 
+                  src="/logo.png" 
                   alt="Vérité Perícias" 
                   width={60} 
                   height={60}
-                  className="relative w-14 h-14 object-contain rounded-xl shadow-soft transition-transform duration-300 group-hover:scale-105"
+                  className="relative w-14 h-14 object-contain rounded-xl transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
               <div className="flex flex-col">

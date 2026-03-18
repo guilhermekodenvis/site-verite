@@ -6,13 +6,15 @@ import { FiPhone, FiMail, FiMapPin, FiClock, FiInstagram, FiLinkedin, FiFacebook
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const services = [
+  { name: 'Perícia Documentoscópica/Grafotécnica', href: '/servicos/pericia-grafotecnica' },
+  { name: 'Assinaturas Digitais e Eletrônicas', href: '/servicos/pericia-digital' },
   { name: 'Perícia Médica', href: '/servicos/pericia-medica' },
-  { name: 'Perícia Contábil', href: '/servicos/pericia-contabil' },
+  { name: 'Perícia Odontológica', href: '/servicos/pericia-odontologica' },
   { name: 'Perícia de Engenharia', href: '/servicos/pericia-engenharia' },
-  { name: 'Perícia Criminal', href: '/servicos/pericia-criminal' },
-  { name: 'Perícia Grafotécnica', href: '/servicos/pericia-grafotecnica' },
+  { name: 'Perícia Contábil', href: '/servicos/pericia-contabil' },
   { name: 'Perícia Ambiental', href: '/servicos/pericia-ambiental' },
   { name: 'Perícia em Informática', href: '/servicos/pericia-informatica' },
+  { name: 'Perícia Criminal/Cível', href: '/servicos/pericia-criminal' },
 ]
 
 const quickLinks = [
@@ -55,7 +57,7 @@ export default function Footer() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gold-400/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
                 <Image 
-                  src="/logo.jpg" 
+                  src="/logo.png" 
                   alt="Vérité Perícias" 
                   width={60} 
                   height={60}

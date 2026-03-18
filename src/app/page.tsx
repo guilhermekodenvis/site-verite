@@ -3,11 +3,29 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield } from 'react-icons/fi'
-import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel } from 'react-icons/fa'
+import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useEffect, useState, useRef } from 'react'
 
 const services = [
+  {
+    icon: FaFingerprint,
+    title: 'Perícia Documentoscópica/Grafotécnica',
+    description: 'Averiguação de fraudes em documentos, montagens, adulterações, falsificações de escrita.',
+    href: '/servicos/pericia-grafotecnica',
+    color: 'from-indigo-500/20 to-indigo-600/10',
+    iconColor: 'text-indigo-500',
+    borderColor: 'border-indigo-500/20 hover:border-indigo-500/40',
+  },
+  {
+    icon: FaFileSignature,
+    title: 'Perícias em Assinaturas Digitais e Eletrônicas',
+    description: 'Análise de assinaturas digitais, eletrônicas e arquivos PDF com ferramentas específicas.',
+    href: '/servicos/pericia-digital',
+    color: 'from-teal-500/20 to-teal-600/10',
+    iconColor: 'text-teal-500',
+    borderColor: 'border-teal-500/20 hover:border-teal-500/40',
+  },
   {
     icon: FaStethoscope,
     title: 'Perícia Médica',
@@ -18,13 +36,13 @@ const services = [
     borderColor: 'border-red-500/20 hover:border-red-500/40',
   },
   {
-    icon: FaCalculator,
-    title: 'Perícia Contábil',
-    description: 'Fraudes financeiras, avaliação patrimonial, cálculos trabalhistas e impostos.',
-    href: '/servicos/pericia-contabil',
-    color: 'from-blue-500/20 to-blue-600/10',
-    iconColor: 'text-blue-500',
-    borderColor: 'border-blue-500/20 hover:border-blue-500/40',
+    icon: FaTooth,
+    title: 'Perícia Odontológica',
+    description: 'Odontologia Legal para processos cíveis, criminais, trabalhistas e previdenciários.',
+    href: '/servicos/pericia-odontologica',
+    color: 'from-pink-500/20 to-pink-600/10',
+    iconColor: 'text-pink-500',
+    borderColor: 'border-pink-500/20 hover:border-pink-500/40',
   },
   {
     icon: FaHardHat,
@@ -36,22 +54,13 @@ const services = [
     borderColor: 'border-orange-500/20 hover:border-orange-500/40',
   },
   {
-    icon: FaGavel,
-    title: 'Perícia Criminal',
-    description: 'Análise de local de crime, vestígios, balística, química e biologia forense.',
-    href: '/servicos/pericia-criminal',
-    color: 'from-purple-500/20 to-purple-600/10',
-    iconColor: 'text-purple-500',
-    borderColor: 'border-purple-500/20 hover:border-purple-500/40',
-  },
-  {
-    icon: FaFingerprint,
-    title: 'Perícia Grafotécnica',
-    description: 'Autenticidade de assinaturas, análise de documentos e fraudes na escrita.',
-    href: '/servicos/pericia-grafotecnica',
-    color: 'from-indigo-500/20 to-indigo-600/10',
-    iconColor: 'text-indigo-500',
-    borderColor: 'border-indigo-500/20 hover:border-indigo-500/40',
+    icon: FaCalculator,
+    title: 'Perícia Contábil',
+    description: 'Fraudes financeiras, avaliação patrimonial, cálculos trabalhistas e impostos.',
+    href: '/servicos/pericia-contabil',
+    color: 'from-blue-500/20 to-blue-600/10',
+    iconColor: 'text-blue-500',
+    borderColor: 'border-blue-500/20 hover:border-blue-500/40',
   },
   {
     icon: FaLeaf,
@@ -70,6 +79,15 @@ const services = [
     color: 'from-cyan-500/20 to-cyan-600/10',
     iconColor: 'text-cyan-500',
     borderColor: 'border-cyan-500/20 hover:border-cyan-500/40',
+  },
+  {
+    icon: FaGavel,
+    title: 'Perícia Criminal/Cível',
+    description: 'Análise de local de crime, vestígios, acidentes de trânsito e incêndios.',
+    href: '/servicos/pericia-criminal',
+    color: 'from-purple-500/20 to-purple-600/10',
+    iconColor: 'text-purple-500',
+    borderColor: 'border-purple-500/20 hover:border-purple-500/40',
   },
 ]
 
@@ -100,7 +118,7 @@ const stats = [
   { value: 500, suffix: '+', label: 'Perícias Realizadas' },
   { value: 30, suffix: '+', label: 'Anos de Experiência' },
   { value: 98, suffix: '%', label: 'Clientes Satisfeitos' },
-  { value: 7, suffix: '', label: 'Áreas de Atuação' },
+  { value: 9, suffix: '', label: 'Áreas de Atuação' },
 ]
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
@@ -397,8 +415,9 @@ export default function HomePage() {
                 cientificamente.
               </p>
               <p className="text-primary-500 mb-8 leading-relaxed">
-                Nossa equipe é formada por profissionais altamente qualificados, com vasta 
-                experiência em suas respectivas áreas de atuação, garantindo a excelência 
+                Nossa equipe é formada por profissionais altamente qualificados, com formação em 
+                Academia de Polícia Civil do Estado de São Paulo e com o mínimo de 25 anos de 
+                experiência em laudos periciais, garantindo a excelência 
                 em cada trabalho realizado.
               </p>
               
@@ -482,20 +501,6 @@ export default function HomePage() {
                 </p>
               </div>
             ))}
-          </div>
-          
-          {/* Image */}
-          <div className="mt-16 max-w-4xl mx-auto">
-            <div className="glass-card-dark p-4">
-              <div className="relative aspect-[21/9] rounded-2xl overflow-hidden">
-                <Image
-                  src="/images/socias-conversando.png"
-                  alt="Sócias conversando"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </section>

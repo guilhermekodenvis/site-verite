@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight, FiCheck, FiPhone, FiFileText, FiArrowUp } from 'react-icons/fi'
-import { FaUserMd, FaCalculator, FaHardHat, FaFingerprint, FaSignature, FaLeaf, FaLaptopCode } from 'react-icons/fa'
+import { FaUserMd, FaCalculator, FaHardHat, FaFingerprint, FaSignature, FaLeaf, FaLaptopCode, FaFileSignature, FaTooth } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 // Map icon names to components
@@ -15,6 +15,8 @@ const iconMap = {
   'graphotechnical': FaSignature,
   'environmental': FaLeaf,
   'it': FaLaptopCode,
+  'digital': FaFileSignature,
+  'odontology': FaTooth,
 } as const
 
 // Map icon names to service images
@@ -26,6 +28,8 @@ const imageMap: Record<string, string> = {
   'graphotechnical': '/images/grafotecnica.png',
   'environmental': '/images/ambiental.png',
   'it': '/images/informatica.png',
+  'digital': '/images/digital.png',
+  'odontology': '/images/odontologica.png',
 }
 
 type IconName = keyof typeof iconMap
@@ -37,7 +41,6 @@ interface ServicePageTemplateProps {
   description: string
   longDescription: string[]
   areas: string[]
-  process: string[]
   benefits: string[]
   color: string
   relatedServices: {
@@ -53,7 +56,6 @@ export default function ServicePageTemplate({
   description,
   longDescription,
   areas,
-  process,
   benefits,
   color,
   relatedServices,
@@ -62,7 +64,6 @@ export default function ServicePageTemplate({
   const serviceImage = imageMap[iconName]
   const contentReveal = useScrollReveal()
   const areasReveal = useScrollReveal()
-  const processReveal = useScrollReveal()
   const ctaReveal = useScrollReveal()
 
   return (
@@ -186,45 +187,7 @@ export default function ServicePageTemplate({
                 </div>
               </div>
               
-              {/* Process Timeline */}
-              <div 
-                ref={processReveal.ref}
-                className={`transition-all duration-700 ${
-                  processReveal.isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-              >
-                <h3 className="font-heading font-semibold text-2xl text-primary-900 mb-8">
-                  Nosso Processo de Trabalho
-                </h3>
-                <div className="relative">
-                  {/* Timeline Line */}
-                  <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold-400 via-gold-500 to-gold-300 rounded-full" />
-                  
-                  <div className="space-y-6">
-                    {process.map((step, index) => (
-                      <div 
-                        key={index} 
-                        className="flex items-start gap-6 relative group"
-                        style={{ 
-                          transitionDelay: processReveal.isRevealed ? `${index * 100}ms` : '0ms',
-                          opacity: processReveal.isRevealed ? 1 : 0,
-                          transform: processReveal.isRevealed ? 'translateX(0)' : 'translateX(-20px)'
-                        }}
-                      >
-                        {/* Step Number */}
-                        <div className="w-10 h-10 bg-gradient-to-br from-primary-800 to-primary-900 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm shadow-soft z-10 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
-                          {index + 1}
-                        </div>
-                        
-                        {/* Step Content */}
-                        <div className="flex-1 glass-card p-5 group-hover:shadow-glass-lg transition-all duration-300">
-                          <p className="text-primary-700 leading-relaxed">{step}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+
               
               {/* Service Image */}
               <div className="pt-4">

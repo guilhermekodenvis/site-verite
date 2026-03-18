@@ -123,7 +123,10 @@ export default function SobrePage() {
               <div className="space-y-6 text-primary-600 leading-relaxed">
                 <p>
                   A <strong className="text-primary-900">Vérité</strong> nasceu da visão de profissionais 
-                  apaixonados pela busca da verdade técnica no âmbito judicial. Nosso nome, que significa 
+                  apaixonados pela busca da verdade técnica no âmbito judicial. Com formação em 
+                  Academia de Polícia Civil do Estado de São Paulo e com o mínimo de 25 anos de 
+                  experiência em laudos periciais, que após décadas de dedicação na área criminal 
+                  na SPTCSP dirigiu seu olhar para toda a área judicial. Nosso nome, que significa 
                   "verdade" em francês, representa nosso compromisso fundamental: oferecer laudos periciais 
                   imparciais, precisos e fundamentados cientificamente.
                 </p>

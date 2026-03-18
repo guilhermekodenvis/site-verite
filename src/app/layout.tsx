@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   description: 'Empresa especializada em perícias judiciais: médica, contábil, engenharia, criminal, grafotécnica, ambiental e informática. Laudos técnicos com credibilidade e precisão.',
   keywords: 'perícia judicial, perícia médica, perícia contábil, perícia de engenharia, perito judicial, laudo técnico, Brasil',
   icons: {
-    icon: '/logo.jpg',
-    apple: '/logo.jpg',
+    icon: '/logo.png',
+    apple: '/logo.png',
   },
   openGraph: {
     title: 'Vérité | Perícias Judiciais',
     description: 'Empresa especializada em perícias judiciais com excelência em laudos técnicos.',
-    images: ['/logo.jpg'],
+    images: ['/logo.png'],
   },
 }
 

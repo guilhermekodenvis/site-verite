@@ -35,14 +35,6 @@ export default function PericiaContabilPage() {
         "Inventários e partilhas de bens",
         "Recuperação judicial e falências",
       ]}
-      process={[
-        "Recebimento e análise inicial da documentação processual",
-        "Identificação dos pontos controvertidos e definição do escopo pericial",
-        "Requisição de documentos complementares às partes quando necessário",
-        "Realização de diligências e levantamentos contábeis",
-        "Elaboração do laudo pericial com memórias de cálculo detalhadas",
-        "Resposta fundamentada aos quesitos das partes e do juízo",
-      ]}
       benefits={[
         "Peritos com registro ativo no CRC e certificação em perícia contábil",
         "Experiência em processos de alta complexidade",

@@ -35,14 +35,6 @@ export default function PericiaAmbientalPage() {
         "Recuperação de áreas degradadas",
         "Crimes ambientais e infrações administrativas",
       ]}
-      process={[
-        "Análise documental do processo e licenças ambientais envolvidas",
-        "Planejamento e realização de vistoria técnica em campo",
-        "Coleta de amostras para análises laboratoriais quando necessário",
-        "Interpretação de imagens de satélite e dados de sensoriamento remoto",
-        "Avaliação dos impactos ambientais e elaboração do laudo pericial",
-        "Cálculo da valoração do dano ambiental quando aplicável",
-      ]}
       benefits={[
         "Equipe multidisciplinar (biólogos, engenheiros, geólogos)",
         "Laboratórios parceiros certificados para análises",

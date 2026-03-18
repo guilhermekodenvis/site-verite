@@ -7,61 +7,41 @@ import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 const teamMembers = [
   {
-    name: 'Nome da Sócia 1',
-    role: 'Sócia-Fundadora',
-    specialization: 'Especialização Principal',
+    name: 'Eneida Prieto',
+    role: 'Sócia-Fundadora, CEO',
+    specialization: 'Documentoscopia e Odontologia Legal',
     image: '/images/eneida.png',
-    bio: 'Breve biografia profissional destacando formação acadêmica, experiência e principais conquistas na área de perícias judiciais. Descreva aqui a trajetória profissional, cursos de especialização, tempo de atuação no mercado e diferenciais.',
+    bio: 'Com formação em Odontologia e especialização em Odontologia Legal, submeteu-se a Concurso Público para o cargo de Perito Criminal em 1993. Após cursar Academia de Polícia da Polícia Civil do Estado de São Paulo, foi designada a prestar serviços na Equipe de Perícias Criminalísticas de São Bernardo do Campo onde, após período no setor de Locais de Crimes, assumiu a divisão de Documentoscopia onde permaneceu por vinte anos. Em 2014 transferiu-se para a Equipe de Perícias Criminalísticas de Jundiaí para acumular os cargos de Assistente da Chefia e Perita Criminal na área de Documentoscopia. Após seis anos transferiu-se para o Núcleo de Documentoscopia da Sede da Superintendência da Polícia Técnico Científica onde assumiu de 2020 a 2025 o cargo de Diretora de Núcleo. Decorridos trinta e dois anos de serviços prestados na área de Documentoscopia, aposentou-se em 2025. Durante a carreira atuou em milhares de perícias grafotécnicas e documentoscópicas incluindo-se diversos casos de repercussão.',
     credentials: [
-      'Graduação em [Área] pela [Universidade]',
-      'Pós-graduação em [Especialização]',
-      'Membro do [Conselho/Associação Profissional]',
-      'Registro profissional: [Número]',
+      'Graduação em Odontologia',
+      'Especialização em Odontologia Legal',
+      'Academia de Polícia da Polícia Civil do Estado de São Paulo',
+      'Órgão de Classe: CRO/SP nº 23110',
     ],
     expertise: [
-      'Área de especialização 1',
-      'Área de especialização 2',
-      'Área de especialização 3',
+      'Documentoscopia',
+      'Perícia Grafotécnica',
+      'Odontologia Legal',
+      'Assinaturas Digitais e Eletrônicas',
     ],
-    email: 'socia1@verite.com.br',
+    email: 'prieto.eneida@gmail.com',
     phone: '(11) 98288-7949',
-    linkedin: '#',
-  },
-  {
-    name: 'Nome da Sócia 2',
-    role: 'Sócia-Fundadora',
-    specialization: 'Especialização Principal',
-    image: '/images/ana.png',
-    bio: 'Breve biografia profissional destacando formação acadêmica, experiência e principais conquistas na área de perícias judiciais. Descreva aqui a trajetória profissional, cursos de especialização, tempo de atuação no mercado e diferenciais.',
-    credentials: [
-      'Graduação em [Área] pela [Universidade]',
-      'Pós-graduação em [Especialização]',
-      'Membro do [Conselho/Associação Profissional]',
-      'Registro profissional: [Número]',
-    ],
-    expertise: [
-      'Área de especialização 1',
-      'Área de especialização 2',
-      'Área de especialização 3',
-    ],
-    email: 'socia2@verite.com.br',
-    phone: '(11) 98288-7949',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/eneida-prieto',
   },
 ]
 
 const certifications = [
   {
-    title: 'Certificação Profissional',
-    description: 'Descrição da certificação ou reconhecimento obtido pela empresa ou equipe.',
+    title: 'Formação em Academia de Polícia',
+    description: 'Com formação em Academia de Polícia Civil do Estado de São Paulo e com o mínimo de 25 anos de experiência em laudos periciais.',
   },
   {
     title: 'Registro em Conselho',
-    description: 'Detalhes sobre registros profissionais e habilitações da equipe.',
+    description: 'CRO/SP nº 23110 — Conselho Regional de Odontologia do Estado de São Paulo.',
   },
   {
-    title: 'Associações',
-    description: 'Participação em associações e entidades de classe relevantes.',
+    title: 'Equipe Multidisciplinar',
+    description: 'Equipe multidisciplinar com formação em Academia de Polícia Civil do Estado de São Paulo e com o mínimo de 25 anos de experiência em laudos periciais.',
   },
 ]
 
@@ -96,7 +76,7 @@ export default function EquipePage() {
               Nossa <span className="text-gradient-gold bg-gradient-to-r from-gold-300 via-gold-400 to-gold-300">Equipe</span>
             </h1>
             <p className="text-xl text-primary-200/90 leading-relaxed max-w-3xl mx-auto">
-              Conheça as profissionais por trás da Vérité: experiência, 
+              Conheça a profissional por trás da Vérité: experiência, 
               qualificação e compromisso com a excelência.
             </p>
           </div>

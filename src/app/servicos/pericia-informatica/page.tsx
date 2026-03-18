@@ -35,14 +35,6 @@ export default function PericiaInformaticaPage() {
         "Disputas envolvendo sistemas de software",
         "Análise de logs e trilhas de auditoria",
       ]}
-      process={[
-        "Planejamento da coleta e preservação das evidências digitais",
-        "Aquisição forense de mídias com validação de integridade (hash)",
-        "Preservação da cadeia de custódia digital documentada",
-        "Análise técnica detalhada utilizando ferramentas forenses especializadas",
-        "Elaboração de laudo pericial com evidências e capturas de tela",
-        "Apresentação de resultados em linguagem acessível ao judiciário",
-      ]}
       benefits={[
         "Peritos certificados em forense digital (EnCE, CCE, GCFE)",
         "Laboratório equipado com ferramentas forenses licenciadas",

@@ -1,9 +1,25 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight } from 'react-icons/fi'
-import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel } from 'react-icons/fa'
+import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth } from 'react-icons/fa'
 
 const services = [
+  {
+    icon: FaFingerprint,
+    title: 'Perícia Documentoscópica/Grafotécnica',
+    description: 'Averiguação de fraudes em documentos como montagens, adulterações/alterações, falsificações de escrita.',
+    href: '/servicos/pericia-grafotecnica',
+    color: 'bg-indigo-50 text-indigo-600 border-indigo-200',
+    areas: ['Autenticidade de assinaturas', 'Análise de documentos', 'Fraudes na escrita', 'Adulterações e montagens'],
+  },
+  {
+    icon: FaFileSignature,
+    title: 'Perícias em Assinaturas Digitais e Eletrônicas',
+    description: 'Análise de assinaturas digitais, eletrônicas e arquivos PDF com ferramentas específicas.',
+    href: '/servicos/pericia-digital',
+    color: 'bg-teal-50 text-teal-600 border-teal-200',
+    areas: ['Assinaturas digitais', 'Assinaturas eletrônicas', 'Arquivos PDF', 'Extração de dados'],
+  },
   {
     icon: FaStethoscope,
     title: 'Perícia Médica',
@@ -13,12 +29,12 @@ const services = [
     areas: ['Erros médicos', 'Acidentes de trabalho (INSS)', 'Invalidez', 'Danos à saúde'],
   },
   {
-    icon: FaCalculator,
-    title: 'Perícia Contábil',
-    description: 'Análise técnica de questões financeiras, patrimoniais e trabalhistas para subsidiar decisões judiciais.',
-    href: '/servicos/pericia-contabil',
-    color: 'bg-blue-50 text-blue-600 border-blue-200',
-    areas: ['Fraudes financeiras', 'Avaliação patrimonial', 'Cálculos trabalhistas', 'Impostos'],
+    icon: FaTooth,
+    title: 'Perícia Odontológica',
+    description: 'Odontologia Legal aplicada a processos cíveis, criminais, trabalhistas e previdenciários.',
+    href: '/servicos/pericia-odontologica',
+    color: 'bg-pink-50 text-pink-600 border-pink-200',
+    areas: ['Erros odontológicos', 'Auditorias/Seguros', 'Área trabalhista', 'Danos buco-faciais'],
   },
   {
     icon: FaHardHat,
@@ -29,20 +45,12 @@ const services = [
     areas: ['Avaliação de imóveis', 'Danos estruturais', 'Construções', 'Elétrica e mecânica'],
   },
   {
-    icon: FaGavel,
-    title: 'Perícia Criminal',
-    description: 'Análise técnico-científica de evidências para esclarecimento de fatos criminais.',
-    href: '/servicos/pericia-criminal',
-    color: 'bg-purple-50 text-purple-600 border-purple-200',
-    areas: ['Análise de local de crime', 'Vestígios', 'Balística', 'Química e biologia forense'],
-  },
-  {
-    icon: FaFingerprint,
-    title: 'Perícia Grafotécnica',
-    description: 'Verificação de autenticidade de documentos, assinaturas e identificação de fraudes documentais.',
-    href: '/servicos/pericia-grafotecnica',
-    color: 'bg-indigo-50 text-indigo-600 border-indigo-200',
-    areas: ['Autenticidade de assinaturas', 'Análise de documentos', 'Fraudes na escrita'],
+    icon: FaCalculator,
+    title: 'Perícia Contábil',
+    description: 'Análise técnica de questões financeiras, patrimoniais e trabalhistas para subsidiar decisões judiciais.',
+    href: '/servicos/pericia-contabil',
+    color: 'bg-blue-50 text-blue-600 border-blue-200',
+    areas: ['Fraudes financeiras', 'Avaliação patrimonial', 'Cálculos trabalhistas', 'Impostos'],
   },
   {
     icon: FaLeaf,
@@ -59,6 +67,14 @@ const services = [
     href: '/servicos/pericia-informatica',
     color: 'bg-cyan-50 text-cyan-600 border-cyan-200',
     areas: ['Crimes cibernéticos', 'Análise de dados digitais', 'Evidências eletrônicas'],
+  },
+  {
+    icon: FaGavel,
+    title: 'Perícia Criminal/Cível',
+    description: 'Análise técnico-científica de evidências para esclarecimento de fatos criminais e cíveis.',
+    href: '/servicos/pericia-criminal',
+    color: 'bg-purple-50 text-purple-600 border-purple-200',
+    areas: ['Análise de local de crime', 'Vestígios', 'Acidentes de trânsito', 'Incêndios'],
   },
 ]
 
@@ -128,60 +144,6 @@ export default function ServicosPage() {
                     </Link>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 bg-primary-50">
-        <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="section-title mb-4">Como Funciona</h2>
-            <p className="section-subtitle mx-auto">
-              Nosso processo de trabalho é transparente e eficiente.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                step: '01',
-                title: 'Contato Inicial',
-                description: 'Você nos procura com sua demanda e fazemos uma análise inicial do caso.',
-              },
-              {
-                step: '02',
-                title: 'Proposta Técnica',
-                description: 'Elaboramos uma proposta detalhada com escopo, prazo e investimento.',
-              },
-              {
-                step: '03',
-                title: 'Execução',
-                description: 'Realizamos a perícia com metodologia científica e análise rigorosa.',
-              },
-              {
-                step: '04',
-                title: 'Entrega do Laudo',
-                description: 'Entregamos o laudo técnico completo, fundamentado e detalhado.',
-              },
-            ].map((item, index) => (
-              <div key={index} className="text-center relative">
-                <div className="w-16 h-16 bg-gold-500 text-primary-900 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                  {item.step}
-                </div>
-                <h3 className="font-heading font-semibold text-lg text-primary-900 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-primary-600 text-sm">
-                  {item.description}
-                </p>
-                
-                {/* Connector */}
-                {index < 3 && (
-                  <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gold-200 -z-10 transform -translate-x-1/2"></div>
-                )}
               </div>
             ))}
           </div>

@@ -35,14 +35,6 @@ export default function PericiaMedicaPage() {
         "Simulação e dissimulação de doenças",
         "Nexo causal entre doenças e atividades",
       ]}
-      process={[
-        "Análise detalhada dos autos processuais e documentação médica disponível",
-        "Agendamento e realização de exame pericial presencial quando necessário",
-        "Solicitação de exames complementares se indicados tecnicamente",
-        "Elaboração de laudo pericial completo com fundamentação científica",
-        "Resposta aos quesitos formulados pelas partes de forma clara e objetiva",
-        "Comparecimento em audiência para esclarecimentos quando convocado",
-      ]}
       benefits={[
         "Peritos médicos com registro no CRM e especialização em medicina legal",
         "Experiência em mais de 500 perícias médicas realizadas",

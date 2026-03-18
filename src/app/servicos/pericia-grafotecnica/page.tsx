@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import ServicePageTemplate from '@/components/services/ServicePageTemplate'
 
 export const metadata: Metadata = {
-  title: 'Perícia Grafotécnica | Vérité Perícias',
-  description: 'Perícia grafotécnica especializada. Autenticidade de assinaturas, análise de documentos e identificação de fraudes na escrita.',
+  title: 'Perícia Documentoscópica/Grafotécnica | Vérité Perícias',
+  description: 'Perícia documentoscópica e grafotécnica especializada. Averiguação de fraudes em documentos, autenticidade de assinaturas, montagens, adulterações e falsificações de escrita.',
 }
 
 const relatedServices = [
@@ -17,9 +17,9 @@ export default function PericiaGrafotecnicaPage() {
   return (
     <ServicePageTemplate
       iconName="graphotechnical"
-      title="Perícia Grafotécnica"
-      subtitle="Análise técnica especializada em documentos e assinaturas"
-      description="Realizamos perícias grafotécnicas completas para verificação de autenticidade de assinaturas, análise de documentos e identificação de fraudes na escrita."
+      title="Perícia Documentoscópica/Grafotécnica"
+      subtitle="Área dedicada a averiguar fraudes em documentos e assinaturas"
+      description="Realizamos perícias documentoscópicas e grafotécnicas para averiguação de fraudes em documentos como montagens, adulterações/alterações, falsificações de escrita e verificação de autenticidade de assinaturas."
       longDescription={[
         "A perícia grafotécnica é a área da documentoscopia dedicada ao exame de grafismos, com foco especial na verificação de autenticidade de assinaturas e identificação de autoria de manuscritos. Nossos peritos são especialistas em análise grafotécnica com formação específica e ampla experiência judicial.",
         "Utilizamos técnicas científicas consagradas para analisar as características individuais da escrita, que são tão únicas quanto impressões digitais. Cada pessoa possui um padrão de escrita próprio, determinado por fatores neuromusculares e psicológicos que se manifestam nos grafismos.",
@@ -34,14 +34,6 @@ export default function PericiaGrafotecnicaPage() {
         "Exame de testamentos e documentos particulares",
         "Análise de contratos e procurações",
         "Verificação de cheques e títulos de crédito",
-      ]}
-      process={[
-        "Recebimento e análise dos documentos questionados",
-        "Coleta de padrões de comparação (material autêntico do autor)",
-        "Análise minuciosa com equipamentos de magnificação óptica",
-        "Estudo comparativo dos elementos genéricos e genéticos da escrita",
-        "Elaboração de laudo pericial com fundamentação técnica detalhada",
-        "Ilustração do laudo com ampliações e marcações dos pontos relevantes",
       ]}
       benefits={[
         "Peritos especializados em documentoscopia e grafotecnia",

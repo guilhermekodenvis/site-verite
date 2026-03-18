@@ -35,14 +35,6 @@ export default function PericiaEngenhariaPage() {
         "Servidões e desapropriações",
         "Ruídos, vibrações e conforto ambiental",
       ]}
-      process={[
-        "Estudo preliminar dos autos e documentação técnica disponível",
-        "Planejamento e agendamento da vistoria pericial",
-        "Realização de vistoria com registro fotográfico detalhado",
-        "Medições, ensaios e levantamentos técnicos necessários",
-        "Análise dos dados coletados e elaboração do laudo pericial",
-        "Resposta técnica e fundamentada aos quesitos formulados",
-      ]}
       benefits={[
         "Engenheiros com registro no CREA e especializações diversas",
         "Equipamentos profissionais para medições e inspeções",
