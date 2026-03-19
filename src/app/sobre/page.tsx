@@ -356,14 +356,14 @@ export default function SobrePage() {
         >
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-semibold text-white mb-6">
-              Conheça Nossa Equipe
+              Conheça Nossa Fundadora
             </h2>
             <p className="text-primary-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
               Profissionais altamente qualificados, comprometidos com a excelência 
               em cada trabalho pericial.
             </p>
-            <Link href="/equipe" className="btn-secondary">
-              <span>Conhecer a Equipe</span>
+            <Link href="/fundadora" className="btn-secondary">
+              <span>Conhecer a Fundadora</span>
               <FiArrowRight className="w-5 h-5" />
             </Link>
           </div>

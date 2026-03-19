@@ -23,7 +23,7 @@ const navigation = [
   { name: 'Início', href: '/' },
   { name: 'Sobre Nós', href: '/sobre' },
   { name: 'Serviços', href: '/servicos', hasDropdown: true },
-  { name: 'Equipe', href: '/equipe' },
+  { name: 'Fundadora', href: '/fundadora' },
   { name: 'Contato', href: '/contato' },
 ]
 

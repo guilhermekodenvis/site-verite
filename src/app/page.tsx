@@ -424,7 +424,7 @@ export default function HomePage() {
               <ul className="space-y-4 mb-10">
                 {[
                   'Laudos técnicos detalhados e fundamentados',
-                  'Equipe multidisciplinar de peritos especializados',
+                  'Profissionais multidisciplinares e peritos especializados',
                   'Atendimento em todo o território nacional',
                   'Compromisso com prazos e qualidade',
                 ].map((item, index) => (
@@ -445,8 +445,8 @@ export default function HomePage() {
                 <Link href="/sobre" className="btn-primary">
                   <span>Conheça Nossa História</span>
                 </Link>
-                <Link href="/equipe" className="btn-outline">
-                  <span>Nossa Equipe</span>
+                <Link href="/fundadora" className="btn-outline">
+                  <span>Nossa Fundadora</span>
                 </Link>
               </div>
             </div>

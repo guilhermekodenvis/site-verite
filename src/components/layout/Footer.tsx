@@ -20,7 +20,7 @@ const services = [
 const quickLinks = [
   { name: 'Início', href: '/' },
   { name: 'Sobre Nós', href: '/sobre' },
-  { name: 'Nossa Equipe', href: '/equipe' },
+  { name: 'Nossa Fundadora', href: '/fundadora' },
   { name: 'Contato', href: '/contato' },
 ]
 
