@@ -278,9 +278,10 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Timeline */}
+      {/*
+      {/* Timeline 
       <section className="py-24 bg-white relative overflow-hidden">
-        {/* Background */}
+        {/* Background 
         <div className="absolute inset-0">
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gold-200 to-transparent" />
         </div>
@@ -301,7 +302,7 @@ export default function SobrePage() {
           
           <div className="max-w-5xl mx-auto">
             <div className="relative">
-              {/* Timeline line */}
+              {/* Timeline line 
               <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold-400 via-gold-500 to-gold-300 transform md:-translate-x-1/2 rounded-full" />
               
               {timeline.map((item, index) => (
@@ -315,7 +316,7 @@ export default function SobrePage() {
                     transition: 'all 0.6s ease-out'
                   }}
                 >
-                  {/* Content */}
+                  {/* Content 
                   <div className={`ml-20 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
                     <div className="glass-card p-6 group hover:shadow-glass-lg transition-all duration-500">
                       <span className="inline-block px-3 py-1 bg-gold-100 text-gold-700 text-sm font-bold rounded-full mb-3">
@@ -330,10 +331,10 @@ export default function SobrePage() {
                     </div>
                   </div>
                   
-                  {/* Dot */}
+                  {/* Dot 
                   <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full transform -translate-x-1/2 border-4 border-white shadow-lg z-10" />
                   
-                  {/* Spacer */}
+                  {/* Spacer 
                   <div className="hidden md:block md:w-5/12" />
                 </div>
               ))}
@@ -341,6 +342,7 @@ export default function SobrePage() {
           </div>
         </div>
       </section>
+      */}
 
       {/* CTA Section */}
       <section className="py-24 bg-primary-950 relative overflow-hidden">
