@@ -259,7 +259,6 @@ export default function ContatoPage() {
                       >
                         <option value="">Selecione uma opção</option>
                         <option value="medica">Perícia Médica</option>
-                        <option value="contabil">Perícia Contábil</option>
                         <option value="engenharia">Perícia de Engenharia</option>
                         <option value="criminal">Perícia Criminal</option>
                         <option value="grafotecnica">Perícia Grafotécnica</option>

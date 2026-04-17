@@ -13,7 +13,6 @@ const services = [
   { name: 'Perícia Médica', href: '/servicos/pericia-medica', icon: '🩺' },
   { name: 'Perícia Odontológica', href: '/servicos/pericia-odontologica', icon: '🦷' },
   { name: 'Perícia de Engenharia', href: '/servicos/pericia-engenharia', icon: '🏗️' },
-  { name: 'Perícia Contábil', href: '/servicos/pericia-contabil', icon: '📊' },
   { name: 'Perícia Ambiental', href: '/servicos/pericia-ambiental', icon: '🌿' },
   { name: 'Perícia em Informática', href: '/servicos/pericia-informatica', icon: '💻' },
   { name: 'Perícia Criminal/Cível', href: '/servicos/pericia-criminal', icon: '🔍' },

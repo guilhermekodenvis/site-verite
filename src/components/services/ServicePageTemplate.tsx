@@ -3,13 +3,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight, FiCheck, FiPhone, FiFileText, FiArrowUp } from 'react-icons/fi'
-import { FaUserMd, FaCalculator, FaHardHat, FaFingerprint, FaSignature, FaLeaf, FaLaptopCode, FaFileSignature, FaTooth } from 'react-icons/fa'
+import { FaUserMd, FaHardHat, FaFingerprint, FaSignature, FaLeaf, FaLaptopCode, FaFileSignature, FaTooth } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 // Map icon names to components
 const iconMap = {
   'medical': FaUserMd,
-  'accounting': FaCalculator,
   'engineering': FaHardHat,
   'criminal': FaFingerprint,
   'graphotechnical': FaSignature,
@@ -22,7 +21,6 @@ const iconMap = {
 // Map icon names to service images
 const imageMap: Record<string, string> = {
   'medical': '/images/medica.png',
-  'accounting': '/images/contabil.png',
   'engineering': '/images/engenharia.png',
   'criminal': '/images/criminal.png',
   'graphotechnical': '/images/grafotecnica.png',
