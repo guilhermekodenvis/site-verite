@@ -6,8 +6,8 @@ import WhatsAppButton from '@/components/ui/WhatsAppButton'
 
 export const metadata: Metadata = {
   title: 'Vérité | Perícias Judiciais - Excelência em Laudos Técnicos',
-  description: 'Empresa especializada em perícias judiciais: médica, engenharia, criminal, grafotécnica, ambiental e informática. Laudos técnicos com credibilidade e precisão.',
-  keywords: 'perícia judicial, perícia médica, perícia de engenharia, perito judicial, laudo técnico, Brasil',
+  description: 'Empresa especializada em perícias judiciais: médica, contábil, engenharia, criminal, grafotécnica, ambiental e informática. Laudos técnicos com credibilidade e precisão.',
+  keywords: 'perícia judicial, perícia médica, perícia contábil, perícia de engenharia, perito judicial, laudo técnico, Brasil',
   icons: {
     icon: '/logo.png',
     apple: '/logo.png',

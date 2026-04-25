@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight } from 'react-icons/fi'
-import { FaStethoscope, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth } from 'react-icons/fa'
+import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth } from 'react-icons/fa'
 
 const services = [
   {
@@ -43,6 +43,14 @@ const services = [
     href: '/servicos/pericia-engenharia',
     color: 'bg-orange-50 text-orange-600 border-orange-200',
     areas: ['Avaliação de imóveis', 'Danos estruturais', 'Construções', 'Elétrica e mecânica'],
+  },
+  {
+    icon: FaCalculator,
+    title: 'Perícia Contábil',
+    description: 'Análise técnica de questões financeiras, patrimoniais e trabalhistas para subsidiar decisões judiciais.',
+    href: '/servicos/pericia-contabil',
+    color: 'bg-blue-50 text-blue-600 border-blue-200',
+    areas: ['Fraudes financeiras', 'Avaliação patrimonial', 'Cálculos trabalhistas', 'Impostos'],
   },
   {
     icon: FaLeaf,

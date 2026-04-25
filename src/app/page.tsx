@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield } from 'react-icons/fi'
-import { FaStethoscope, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth } from 'react-icons/fa'
+import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useEffect, useState, useRef } from 'react'
 
@@ -52,6 +52,15 @@ const services = [
     color: 'from-orange-500/20 to-orange-600/10',
     iconColor: 'text-orange-500',
     borderColor: 'border-orange-500/20 hover:border-orange-500/40',
+  },
+  {
+    icon: FaCalculator,
+    title: 'Perícia Contábil',
+    description: 'Fraudes financeiras, avaliação patrimonial, cálculos trabalhistas e impostos.',
+    href: '/servicos/pericia-contabil',
+    color: 'from-blue-500/20 to-blue-600/10',
+    iconColor: 'text-blue-500',
+    borderColor: 'border-blue-500/20 hover:border-blue-500/40',
   },
   {
     icon: FaLeaf,

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 const relatedServices = [
   { title: 'Perícia de Engenharia', href: '/servicos/pericia-engenharia' },
   { title: 'Perícia Criminal', href: '/servicos/pericia-criminal' },
+  { title: 'Perícia Contábil', href: '/servicos/pericia-contabil' },
   { title: 'Perícia Médica', href: '/servicos/pericia-medica' },
 ]
 

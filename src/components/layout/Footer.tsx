@@ -11,6 +11,7 @@ const services = [
   { name: 'Perícia Médica', href: '/servicos/pericia-medica' },
   { name: 'Perícia Odontológica', href: '/servicos/pericia-odontologica' },
   { name: 'Perícia de Engenharia', href: '/servicos/pericia-engenharia' },
+  { name: 'Perícia Contábil', href: '/servicos/pericia-contabil' },
   { name: 'Perícia Ambiental', href: '/servicos/pericia-ambiental' },
   { name: 'Perícia em Informática', href: '/servicos/pericia-informatica' },
   { name: 'Perícia Criminal/Cível', href: '/servicos/pericia-criminal' },

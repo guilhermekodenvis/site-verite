@@ -10,6 +10,7 @@ const relatedServices = [
   { title: 'Perícia Documentoscópica/Grafotécnica', href: '/servicos/pericia-grafotecnica' },
   { title: 'Perícia em Informática', href: '/servicos/pericia-informatica' },
   { title: 'Perícia Criminal/Cível', href: '/servicos/pericia-criminal' },
+  { title: 'Perícia Contábil', href: '/servicos/pericia-contabil' },
 ]
 
 export default function PericiaDigitalPage() {
