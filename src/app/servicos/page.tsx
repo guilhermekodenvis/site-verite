@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight } from 'react-icons/fi'
-import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth } from 'react-icons/fa'
+import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth, FaChartBar } from 'react-icons/fa'
 
 const services = [
   {
@@ -75,6 +75,14 @@ const services = [
     href: '/servicos/pericia-criminal',
     color: 'bg-purple-50 text-purple-600 border-purple-200',
     areas: ['Análise de local de crime', 'Vestígios', 'Acidentes de trânsito', 'Incêndios'],
+  },
+  {
+    icon: FaChartBar,
+    title: 'Diagnóstico Empresarial',
+    description: 'Diagnóstico completo de riscos tributários, financeiros, trabalhistas e contábeis com base normativa sólida (NBC, CPC, CLT, BACEN, ISO, COSO) e laudo técnico pronto para decisão.',
+    href: '/servicos/diagnostico-empresarial',
+    color: 'bg-gray-100 text-amber-600 border-gray-200',
+    areas: ['Fusões e Aquisições (M&A)', 'Acesso a crédito', 'Prevenção a fraudes', 'Regularização fiscal'],
   },
 ]
 

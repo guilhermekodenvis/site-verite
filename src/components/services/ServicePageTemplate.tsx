@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight, FiCheck, FiPhone, FiFileText, FiArrowUp } from 'react-icons/fi'
-import { FaUserMd, FaCalculator, FaHardHat, FaFingerprint, FaSignature, FaLeaf, FaLaptopCode, FaFileSignature, FaTooth } from 'react-icons/fa'
+import { FaUserMd, FaCalculator, FaHardHat, FaFingerprint, FaSignature, FaLeaf, FaLaptopCode, FaFileSignature, FaTooth, FaChartBar } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 // Map icon names to components
@@ -17,6 +17,7 @@ const iconMap = {
   'it': FaLaptopCode,
   'digital': FaFileSignature,
   'odontology': FaTooth,
+  'diagnostic': FaChartBar,
 } as const
 
 // Map icon names to service images
@@ -30,6 +31,7 @@ const imageMap: Record<string, string> = {
   'it': '/images/informatica.png',
   'digital': '/images/digital.png',
   'odontology': '/images/odontologica.png',
+  'diagnostic': '/images/diagnostico.svg',
 }
 
 type IconName = keyof typeof iconMap

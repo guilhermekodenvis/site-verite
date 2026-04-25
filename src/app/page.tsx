@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield } from 'react-icons/fi'
-import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth } from 'react-icons/fa'
+import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth, FaChartBar } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 import { useEffect, useState, useRef } from 'react'
 
@@ -89,6 +89,15 @@ const services = [
     iconColor: 'text-purple-500',
     borderColor: 'border-purple-500/20 hover:border-purple-500/40',
   },
+  {
+    icon: FaChartBar,
+    title: 'Diagnóstico Empresarial',
+    description: 'Mapeamento integrado de riscos tributários, financeiros, trabalhistas e contábeis com laudo técnico.',
+    href: '/servicos/diagnostico-empresarial',
+    color: 'from-amber-500/20 to-amber-600/10',
+    iconColor: 'text-amber-500',
+    borderColor: 'border-amber-500/20 hover:border-amber-500/40',
+  },
 ]
 
 const differentials = [
@@ -118,7 +127,7 @@ const stats = [
   { value: 500, suffix: '+', label: 'Perícias Realizadas' },
   { value: 30, suffix: '+', label: 'Anos de Experiência' },
   { value: 98, suffix: '%', label: 'Clientes Satisfeitos' },
-  { value: 9, suffix: '', label: 'Áreas de Atuação' },
+  { value: 10, suffix: '', label: 'Áreas de Atuação' },
 ]
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {

@@ -17,6 +17,7 @@ const services = [
   { name: 'Perícia Ambiental', href: '/servicos/pericia-ambiental', icon: '🌿' },
   { name: 'Perícia em Informática', href: '/servicos/pericia-informatica', icon: '💻' },
   { name: 'Perícia Criminal/Cível', href: '/servicos/pericia-criminal', icon: '🔍' },
+  { name: 'Diagnóstico Empresarial', href: '/servicos/diagnostico-empresarial', icon: '📈' },
 ]
 
 const navigation = [
@@ -279,7 +280,7 @@ export default function Header() {
                         <FiChevronDown className={`w-5 h-5 transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`} />
                       </button>
                       
-                      <div className={`overflow-hidden transition-all duration-300 ${servicesOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                      <div className={`overflow-hidden transition-all duration-300 ${servicesOpen ? 'max-h-[620px] opacity-100' : 'max-h-0 opacity-0'}`}>
                         <div className="ml-4 mt-2 space-y-1 border-l-2 border-primary-100 pl-4">
                           {services.map((service) => (
                             <Link
