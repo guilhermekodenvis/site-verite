@@ -15,6 +15,7 @@ const services = [
   { name: 'Perícia Ambiental', href: '/servicos/pericia-ambiental' },
   { name: 'Perícia em Informática', href: '/servicos/pericia-informatica' },
   { name: 'Perícia Criminal/Cível', href: '/servicos/pericia-criminal' },
+  { name: 'Diagnóstico Empresarial', href: '/servicos/diagnostico-empresarial' },
 ]
 
 const quickLinks = [
