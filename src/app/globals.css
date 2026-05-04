@@ -67,7 +67,7 @@
   }
   
   body {
-    @apply font-body text-primary-900 bg-white antialiased;
+    @apply font-body text-primary-900 bg-white antialiased overflow-x-hidden;
     background-image: 
       radial-gradient(ellipse 80% 80% at 50% -20%, rgba(201, 148, 61, 0.03), transparent),
       radial-gradient(ellipse 60% 60% at 100% 100%, rgba(1, 11, 33, 0.02), transparent);

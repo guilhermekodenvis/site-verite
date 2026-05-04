@@ -65,7 +65,7 @@ export default function WhatsAppButton() {
           {/* Email */}
           <a
             href="mailto:prieto.eneida@gmail.com"
-            className="w-12 h-12 glass rounded-full flex items-center justify-center shadow-glass hover:shadow-glass-lg hover:scale-110 transition-all duration-300 group"
+            className="relative w-12 h-12 glass rounded-full flex items-center justify-center shadow-glass hover:shadow-glass-lg hover:scale-110 transition-all duration-300 group"
             aria-label="Enviar email"
           >
             <FiMail className="w-5 h-5 text-primary-700" />
@@ -77,7 +77,7 @@ export default function WhatsAppButton() {
           {/* Phone */}
           <a
             href="tel:+5511982887949"
-            className="w-12 h-12 glass rounded-full flex items-center justify-center shadow-glass hover:shadow-glass-lg hover:scale-110 transition-all duration-300 group"
+            className="relative w-12 h-12 glass rounded-full flex items-center justify-center shadow-glass hover:shadow-glass-lg hover:scale-110 transition-all duration-300 group"
             aria-label="Ligar"
           >
             <FiPhone className="w-5 h-5 text-primary-700" />

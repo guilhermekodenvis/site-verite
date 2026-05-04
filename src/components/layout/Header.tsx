@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { FiMenu, FiX, FiChevronDown, FiArrowRight } from 'react-icons/fi'
-import { useHeaderScroll } from '@/hooks/useScrollReveal'
+import { useHeaderScroll, useScrollProgress } from '@/hooks/useScrollReveal'
 
 const services = [
   { name: 'Perícia Documentoscópica/ Grafotécnica', href: '/servicos/pericia-grafotecnica', icon: '✍️' },
@@ -36,6 +36,7 @@ export default function Header() {
   const navRef = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
   const isScrolled = useHeaderScroll(20)
+  const scrollProgress = useScrollProgress()
   const pathname = usePathname()
 
   // Close mobile menu on route change
@@ -94,8 +95,10 @@ export default function Header() {
         }`}
       >
         {/* Progress bar */}
-        <div className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-gold-400 via-gold-500 to-gold-400 transition-all duration-300"
-             style={{ width: `${typeof window !== 'undefined' ? (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 : 0}%` }} />
+        <div
+          className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-gold-400 via-gold-500 to-gold-400"
+          style={{ width: `${scrollProgress * 100}%` }}
+        />
         
         <nav className="container-custom">
           <div className="flex items-center justify-between h-20">
@@ -163,16 +166,16 @@ export default function Header() {
                         <FiChevronDown className={`w-4 h-4 transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`} />
                       </button>
                       
-                      {/* Dropdown */}
-                      <div 
-                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-4 transition-all duration-300 ${
-                          servicesOpen 
-                            ? 'opacity-100 translate-y-0 pointer-events-auto' 
+                      {/* Dropdown — hidden on mobile to prevent overflow */}
+                      <div
+                        className={`hidden lg:block absolute top-full left-1/2 -translate-x-1/2 pt-4 transition-all duration-300 ${
+                          servicesOpen
+                            ? 'opacity-100 translate-y-0 pointer-events-auto'
                             : 'opacity-0 -translate-y-2 pointer-events-none'
                         }`}
                       >
-                        <div className="w-72 glass rounded-2xl shadow-glass-lg border border-white/60 overflow-hidden">
-                          <div className="p-2">
+                        <div className="w-[580px] glass rounded-2xl shadow-glass-lg border border-white/60 overflow-hidden">
+                          <div className="p-2 grid grid-cols-2 gap-x-2">
                             {services.map((service, idx) => (
                               <Link
                                 key={service.href}

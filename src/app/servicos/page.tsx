@@ -90,14 +90,14 @@ export default function ServicosPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800">
+      <section className="pt-32 pb-16 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800 overflow-hidden">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-semibold mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-semibold mb-4 md:mb-6">
               Nossos <span className="text-gold-400">Serviços</span>
             </h1>
-            <p className="text-xl text-primary-200 leading-relaxed">
-              Oferecemos uma ampla gama de serviços periciais especializados, 
+            <p className="text-base sm:text-lg md:text-xl text-primary-200 leading-relaxed px-2">
+              Oferecemos uma ampla gama de serviços periciais especializados,
               atendendo às mais diversas demandas do sistema judiciário brasileiro.
             </p>
           </div>
@@ -105,24 +105,51 @@ export default function ServicosPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white">
         <div className="container-custom">
-          <div className="grid gap-8">
+          <div className="grid gap-4 md:gap-8">
             {services.map((service, index) => (
-              <div 
-                key={index} 
-                className={`bg-white rounded-2xl border-2 ${service.color.split(' ')[2]} p-8 hover:shadow-xl transition-shadow`}
+              <div
+                key={index}
+                className={`bg-white rounded-2xl border-2 ${service.color.split(' ')[2]} p-4 sm:p-6 md:p-8 hover:shadow-xl transition-shadow w-full min-w-0`}
               >
-                <div className="grid md:grid-cols-12 gap-6 items-center">
-                  {/* Icon */}
-                  <div className="md:col-span-1">
+                {/* Mobile layout */}
+                <div className="flex flex-col gap-4 md:hidden">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <div className={`shrink-0 w-12 h-12 ${service.color.split(' ')[0]} ${service.color.split(' ')[1]} rounded-2xl flex items-center justify-center`}>
+                      <service.icon className="w-6 h-6" />
+                    </div>
+                    <h2 className="font-heading font-semibold text-lg text-primary-900 leading-snug min-w-0">
+                      {service.title}
+                    </h2>
+                  </div>
+                  <p className="text-primary-600 text-sm">
+                    {service.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {service.areas.map((area, i) => (
+                      <span key={i} className="px-3 py-1 bg-primary-50 text-primary-600 rounded-full text-xs">
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    href={service.href}
+                    className="inline-flex items-center justify-center w-full px-6 py-3 bg-primary-900 text-white rounded-lg hover:bg-primary-800 transition-colors group text-sm"
+                  >
+                    Saiba mais
+                    <FiArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+
+                {/* Desktop layout */}
+                <div className="hidden md:grid md:grid-cols-12 gap-6 items-center">
+                  <div className="col-span-1">
                     <div className={`w-16 h-16 ${service.color.split(' ')[0]} ${service.color.split(' ')[1]} rounded-2xl flex items-center justify-center`}>
                       <service.icon className="w-8 h-8" />
                     </div>
                   </div>
-                  
-                  {/* Content */}
-                  <div className="md:col-span-8">
+                  <div className="col-span-8">
                     <h2 className="font-heading font-semibold text-2xl text-primary-900 mb-2">
                       {service.title}
                     </h2>
@@ -131,19 +158,14 @@ export default function ServicosPage() {
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {service.areas.map((area, i) => (
-                        <span 
-                          key={i} 
-                          className="px-3 py-1 bg-primary-50 text-primary-600 rounded-full text-sm"
-                        >
+                        <span key={i} className="px-3 py-1 bg-primary-50 text-primary-600 rounded-full text-sm">
                           {area}
                         </span>
                       ))}
                     </div>
                   </div>
-                  
-                  {/* CTA */}
-                  <div className="md:col-span-3 flex md:justify-end">
-                    <Link 
+                  <div className="col-span-3 flex justify-end">
+                    <Link
                       href={service.href}
                       className="inline-flex items-center px-6 py-3 bg-primary-900 text-white rounded-lg hover:bg-primary-800 transition-colors group"
                     >
@@ -159,14 +181,14 @@ export default function ServicosPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-gold-500 to-gold-600">
+      <section className="py-12 md:py-20 bg-gradient-to-r from-gold-500 to-gold-600">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-semibold text-primary-900 mb-6">
+          <div className="max-w-4xl mx-auto text-center px-2">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-semibold text-primary-900 mb-4 md:mb-6">
               Precisa de uma perícia especializada?
             </h2>
-            <p className="text-primary-800 text-lg mb-8 max-w-2xl mx-auto">
-              Entre em contato conosco para uma análise inicial do seu caso. 
+            <p className="text-primary-800 text-base md:text-lg mb-6 md:mb-8 max-w-2xl mx-auto">
+              Entre em contato conosco para uma análise inicial do seu caso.
               Nossa equipe está pronta para ajudá-lo.
             </p>
             <Link href="/contato" className="btn-primary bg-primary-900 hover:bg-primary-800">
