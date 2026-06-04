@@ -2,10 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield } from 'react-icons/fi'
+import { FiArrowRight, FiCheck, FiPhone, FiAward, FiUsers, FiFileText, FiShield, FiSend } from 'react-icons/fi'
 import { FaStethoscope, FaCalculator, FaHardHat, FaFingerprint, FaLeaf, FaLaptop, FaGavel, FaFileSignature, FaTooth, FaChartBar } from 'react-icons/fa'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, type ChangeEvent, type FormEvent } from 'react'
 
 const services = [
   {
@@ -168,6 +168,56 @@ export default function HomePage() {
   const aboutReveal = useScrollReveal()
   const differentialsReveal = useScrollReveal()
   const ctaReveal = useScrollReveal()
+  const [heroFormData, setHeroFormData] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+    mensagem: '',
+  })
+  const [heroIsSubmitting, setHeroIsSubmitting] = useState(false)
+  const [heroSubmitStatus, setHeroSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleHeroInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target
+
+    setHeroFormData((currentData) => ({
+      ...currentData,
+      [name]: value,
+    }))
+  }
+
+  const handleHeroSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setHeroIsSubmitting(true)
+    setHeroSubmitStatus('idle')
+
+    try {
+      const response = await fetch('https://black-elephant.app.n8n.cloud/webhook/verite-contact-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: heroFormData.nome,
+          email: heroFormData.email,
+          telefone: heroFormData.telefone,
+          mensagem: heroFormData.mensagem,
+        }),
+      })
+
+      if (!response.ok) throw new Error('Erro ao enviar')
+
+      setHeroSubmitStatus('success')
+      setHeroFormData({
+        nome: '',
+        email: '',
+        telefone: '',
+        mensagem: '',
+      })
+    } catch {
+      setHeroSubmitStatus('error')
+    } finally {
+      setHeroIsSubmitting(false)
+    }
+  }
 
   return (
     <>
@@ -175,13 +225,27 @@ export default function HomePage() {
       <div className="grain-overlay" />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        {/* Animated Background */}
+      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden lg:min-h-[calc(100vh+3rem)]">
+        {/* Hero Background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800 lg:hidden" />
+
+          <div className="absolute inset-0 hidden lg:block">
+            <Image
+              src="/images/socias.png"
+              alt="Sócias do Instituto Vérité"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-[62%_30%] scale-x-[-1]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-950/95 via-primary-950/55 to-primary-950/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary-950/82 via-primary-950/18 to-primary-950/42" />
+            <div className="absolute inset-0 bg-gold-900/10 mix-blend-multiply" />
+          </div>
           
           {/* Mesh Gradient Overlay */}
-          <div className="absolute inset-0 opacity-60 mesh-gradient-dark" />
+          <div className="absolute inset-0 opacity-60 mesh-gradient-dark lg:opacity-25" />
           
           {/* Animated Floating Shapes */}
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl animate-float" />
@@ -197,12 +261,12 @@ export default function HomePage() {
         </div>
         
         <div className="container-custom relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(380px,460px)] lg:gap-16 xl:gap-24 items-center">
             {/* Left Content */}
-            <div className="text-white space-y-8 animate-fade-in-up">
+            <div className="text-white space-y-8 animate-fade-in-up lg:max-w-2xl">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 glass-gold rounded-full text-gold-300 text-sm">
-                <FiAward className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-gold-300 text-sm border border-gold-400/25 bg-gold-500/10 backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse-soft flex-shrink-0" />
                 <span>Excelência em Perícias Judiciais</span>
               </div>
               
@@ -233,45 +297,127 @@ export default function HomePage() {
 
             </div>
             
-            {/* Right Content - Hero Image & Stats */}
+            {/* Desktop Contact Form */}
             <div className="hidden lg:block animate-fade-in-left delay-300">
-              <div className="relative">
-                {/* Main Image */}
-                <div className="relative z-10">
-                  <div className="glass-card-dark p-3">
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                      <Image
-                        src="/images/socias.png"
-                        alt="Sócias do Instituto Vérité"
-                        fill
-                        className="object-cover"
-                        priority
+              <div className="relative overflow-hidden rounded-[28px] border border-white/[0.13] bg-primary-950/45 p-6 shadow-[0_32px_80px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-[40px] backdrop-saturate-180 xl:p-7">
+                {/* Top shimmer */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+                {/* Bottom gold shimmer */}
+                <div className="pointer-events-none absolute inset-x-8 bottom-0 h-px bg-gradient-to-r from-transparent via-gold-400/25 to-transparent" />
+                {/* Subtle vignette */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.03] via-transparent to-black/[0.06]" />
+
+                <form onSubmit={handleHeroSubmit} className="relative z-10 space-y-4">
+                  <div>
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-300/80">
+                      Fale com a Vérité
+                    </span>
+                    <div className="mt-2.5 mb-0.5 h-px w-8 bg-gradient-to-r from-gold-400/70 to-transparent" />
+                    <h2 className="mt-2 text-2xl font-heading font-semibold leading-tight text-white">
+                      Solicite uma análise inicial
+                    </h2>
+                    <p className="mt-2 text-sm leading-relaxed text-white/85">
+                      Envie seu caso e retornaremos com orientação sobre os próximos passos.
+                    </p>
+                  </div>
+
+                  <div>
+                    <label htmlFor="hero-nome" className="mb-1.5 block text-sm font-medium text-white">
+                      Nome completo *
+                    </label>
+                    <input
+                      id="hero-nome"
+                      name="nome"
+                      type="text"
+                      value={heroFormData.nome}
+                      onChange={handleHeroInputChange}
+                      required
+                      className="w-full rounded-xl border border-white/[0.18] bg-white/[0.08] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/50 focus:border-gold-400/70 focus:bg-white/[0.14] focus:ring-2 focus:ring-gold-400/20"
+                      placeholder="Seu nome"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label htmlFor="hero-email" className="mb-1.5 block text-sm font-medium text-white">
+                        Email *
+                      </label>
+                      <input
+                        id="hero-email"
+                        name="email"
+                        type="email"
+                        value={heroFormData.email}
+                        onChange={handleHeroInputChange}
+                        required
+                        className="w-full rounded-xl border border-white/[0.18] bg-white/[0.08] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/50 focus:border-gold-400/70 focus:bg-white/[0.14] focus:ring-2 focus:ring-gold-400/20"
+                        placeholder="seu@email.com"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="hero-telefone" className="mb-1.5 block text-sm font-medium text-white">
+                        Telefone *
+                      </label>
+                      <input
+                        id="hero-telefone"
+                        name="telefone"
+                        type="tel"
+                        value={heroFormData.telefone}
+                        onChange={handleHeroInputChange}
+                        required
+                        className="w-full rounded-xl border border-white/[0.18] bg-white/[0.08] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/50 focus:border-gold-400/70 focus:bg-white/[0.14] focus:ring-2 focus:ring-gold-400/20"
+                        placeholder="(11) 99999-9999"
                       />
                     </div>
                   </div>
-                </div>
-                
-                {/* Floating Stats Card */}
-                <div className="absolute -bottom-8 -left-8 z-20 glass p-6 rounded-2xl shadow-glass-lg animate-float">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
-                      <FiAward className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-heading font-semibold text-primary-900">30+</p>
-                      <p className="text-primary-500 text-sm">Anos de experiência</p>
-                    </div>
+
+                  <div>
+                    <label htmlFor="hero-mensagem" className="mb-1.5 block text-sm font-medium text-white">
+                      Mensagem *
+                    </label>
+                    <textarea
+                      id="hero-mensagem"
+                      name="mensagem"
+                      rows={4}
+                      value={heroFormData.mensagem}
+                      onChange={handleHeroInputChange}
+                      required
+                      className="w-full resize-none rounded-xl border border-white/[0.18] bg-white/[0.08] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/50 focus:border-gold-400/70 focus:bg-white/[0.14] focus:ring-2 focus:ring-gold-400/20 resize-none"
+                      placeholder="Descreva brevemente sua necessidade..."
+                    />
                   </div>
-                </div>
-                
-                {/* Decorative Elements */}
-                <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-gold-400/30 rounded-2xl -z-10 animate-pulse-soft" />
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-gold-500/20 to-transparent rounded-2xl blur-xl -z-10" />
+
+                  <button
+                    type="submit"
+                    disabled={heroIsSubmitting}
+                    className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 px-6 py-3.5 text-sm font-semibold text-white shadow-glow-gold transition-all duration-300 hover:from-gold-400 hover:to-gold-500 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+                  >
+                    <FiSend className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                    <span>{heroIsSubmitting ? 'Enviando...' : 'Enviar Mensagem'}</span>
+                  </button>
+
+                  {heroSubmitStatus === 'success' && (
+                    <p className="rounded-xl border border-green-300/40 bg-green-500/20 px-4 py-3 text-sm font-medium text-green-100">
+                      Mensagem enviada com sucesso. Retornaremos em breve.
+                    </p>
+                  )}
+
+                  {heroSubmitStatus === 'error' && (
+                    <p className="rounded-xl border border-red-300/40 bg-red-500/20 px-4 py-3 text-sm font-medium text-red-100">
+                      Não foi possível enviar agora. Tente novamente em instantes.
+                    </p>
+                  )}
+                </form>
               </div>
             </div>
           </div>
         </div>
-        
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden lg:flex flex-col items-center gap-2">
+          <span className="text-white/35 text-[10px] font-medium tracking-[0.3em] uppercase">Scroll</span>
+          <div className="w-px h-10 bg-gradient-to-b from-white/40 to-transparent animate-pulse-soft" />
+        </div>
 
       </section>
 
